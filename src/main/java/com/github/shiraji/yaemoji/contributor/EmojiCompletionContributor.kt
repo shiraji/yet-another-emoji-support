@@ -7,6 +7,7 @@ import com.intellij.openapi.application.ex.ApplicationUtil.runWithCheckCanceled
 import com.intellij.openapi.progress.EmptyProgressIndicator
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.psi.PsiComment
+import com.intellij.psi.PsiJavaToken
 import com.intellij.util.ProcessingContext
 import java.util.concurrent.Callable
 
@@ -27,7 +28,7 @@ class EmojiCompletionContributor : CompletionContributor() {
             callable, EmptyProgressIndicator()
         )
 
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement(PsiComment::class.java), object : CompletionProvider<CompletionParameters>() {
+        val provider = object : CompletionProvider<CompletionParameters>() {
             override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet) {
                 val offset = parameters.editor.caretModel.currentCaret.offset
                 val lineStartOffset = parameters.editor.caretModel.currentCaret.visualLineStart
@@ -53,7 +54,9 @@ class EmojiCompletionContributor : CompletionContributor() {
                 }
 
             }
-        })
+        }
 
+        extend(CompletionType.BASIC, PlatformPatterns.psiElement(PsiComment::class.java), provider)
+        extend(CompletionType.BASIC, PlatformPatterns.psiElement(PsiJavaToken::class.java), provider)
     }
 }
