@@ -24,6 +24,7 @@ version '1.0-SNAPSHOT'
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version '2019.1.2'
+    plugins = ['Kotlin']
 }
 patchPluginXml {
     changeNotes """

@@ -4,15 +4,16 @@ import com.github.shiraji.yaemoji.domain.EmojiCompletionProvider
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.patterns.PlatformPatterns
-import com.intellij.psi.PsiComment
-import com.intellij.psi.PsiJavaToken
+import org.jetbrains.kotlin.psi.KtBlockStringTemplateEntry
 import org.jetbrains.kotlin.psi.KtStringTemplateExpression
 
-class EmojiCompletionContributor : CompletionContributor() {
+class KotlinEmojiCompletionContributor : CompletionContributor() {
     init {
         val provider = EmojiCompletionProvider()
 
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement(PsiComment::class.java), provider)
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement(PsiJavaToken::class.java), provider)
+        extend(CompletionType.BASIC,
+                PlatformPatterns.psiElement().inside(KtStringTemplateExpression::class.java)
+                        .andNot(PlatformPatterns.psiElement().inside(KtBlockStringTemplateEntry::class.java)),
+                provider)
     }
 }

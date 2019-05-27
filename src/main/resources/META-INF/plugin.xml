@@ -8,8 +8,11 @@
     ]]></description>
 
     <depends>com.intellij.modules.lang</depends>
+    <depends optional="true" config-file="kotlin.xml">org.jetbrains.kotlin</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <preloadingActivity implementation="com.github.shiraji.yaemoji.action.EmojiPreloadingActivity"/>
+
         <completion.contributor language="any"
                                 implementationClass="com.github.shiraji.yaemoji.contributor.EmojiCompletionContributor"/>
     </extensions>
