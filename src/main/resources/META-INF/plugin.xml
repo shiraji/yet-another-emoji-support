@@ -18,6 +18,8 @@
                                 implementationClass="com.github.shiraji.yaemoji.contributor.EmojiCompletionContributor"/>
         <completion.contributor language="JAVA"
                                 implementationClass="com.github.shiraji.yaemoji.contributor.JavaEmojiCompletionContributor"/>
+        <completion.contributor language="XML"
+                                implementationClass="com.github.shiraji.yaemoji.contributor.XMLEmojiCompletionContributor"/>
     </extensions>
 
     <actions>
