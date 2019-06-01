@@ -18,6 +18,9 @@
 
         <completion.contributor language="any"
                                 implementationClass="com.github.shiraji.yaemoji.contributor.EmojiCompletionContributor"/>
+        <completion.contributor language="TEXT"
+                                order="first, before commitCompletion"
+                                implementationClass="com.github.shiraji.yaemoji.contributor.TextCompletionContributor"/>
         <completion.contributor language="JAVA"
                                 implementationClass="com.github.shiraji.yaemoji.contributor.JavaEmojiCompletionContributor"/>
         <completion.contributor language="XML"
