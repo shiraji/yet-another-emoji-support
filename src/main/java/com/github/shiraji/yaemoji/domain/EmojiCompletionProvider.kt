@@ -13,6 +13,7 @@ class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
     override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet) {
         val offset = parameters.editor.caretModel.currentCaret.offset
         val lineStartOffset = parameters.editor.caretModel.currentCaret.visualLineStart
+        if (parameters.editor.isOneLineMode) return
         val text = parameters.editor.document.text
         var colonPosition = offset
         for (i in offset downTo lineStartOffset) {
