@@ -1,0 +1,7 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <completion.contributor language="ruby"
+                                implementationClass="com.github.shiraji.yaemoji.contributor.RubyEmojiCompletionContributor"/>
+
+    </extensions>
+</idea-plugin>

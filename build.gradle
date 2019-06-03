@@ -1,16 +1,53 @@
+buildscript {
+    ext.kotlin_version = '1.3.31'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 plugins {
     id 'org.jetbrains.intellij' version '0.4.8'
 }
+
+apply plugin: 'org.jetbrains.intellij'
+apply plugin: 'kotlin'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 group 'com.github.shiraji'
 version '1.0-SNAPSHOT'
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2019.1.2'
+    version 'IU-2018.1.4'
+    plugins = [
+            // https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+            'Kotlin',
+            'Pythonid:2018.1.181.5087.50', // https://plugins.jetbrains.com/plugin/631-python
+            'org.jetbrains.plugins.ruby:2018.1.20180515', // https://plugins.jetbrains.com/plugin/1293-ruby
+            'yaml',
+            'org.jetbrains.plugins.go:181.5087.39.204', // https://plugins.jetbrains.com/plugin/9568-go
+            'com.jetbrains.php:181.5087.11', // https://plugins.jetbrains.com/plugin/6610-php
+            'JavaScriptLanguage',
+    ]
+    updateSinceUntilBuild = false
 }
+
 patchPluginXml {
     changeNotes """
       Add change notes here.<br>
       <em>most HTML tags may be used</em>"""
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

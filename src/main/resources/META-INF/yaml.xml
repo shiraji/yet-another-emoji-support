@@ -1,0 +1,7 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <completion.contributor language="yaml"
+                                implementationClass="com.github.shiraji.yaemoji.contributor.YAMLEmojiCompletionContributor"/>
+
+    </extensions>
+</idea-plugin>

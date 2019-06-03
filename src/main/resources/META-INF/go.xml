@@ -1,0 +1,7 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <completion.contributor language="go"
+                                implementationClass="com.github.shiraji.yaemoji.contributor.GoEmojiCompletionContributor"/>
+
+    </extensions>
+</idea-plugin>

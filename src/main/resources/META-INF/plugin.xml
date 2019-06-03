@@ -1,21 +1,32 @@
 <idea-plugin>
-    <id>com.github.shiraji.yet-another-emoji-support</id>
+    <id>com.github.shiraji.yaemoji</id>
     <name>Yet Another Emoji support</name>
     <vendor email="isogai.shiraji@gmail.com" url="https://github.com/shiraji">Shiraji</vendor>
 
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+    Yet another emoji support plugin yay!!!!!!!!!!!!!
     ]]></description>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
-    <!-- uncomment to enable plugin in all products
     <depends>com.intellij.modules.lang</depends>
-    -->
+    <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
+    <depends optional="true" config-file="java.xml">com.intellij.modules.java</depends>
+    <depends optional="true" config-file="kotlin.xml">org.jetbrains.kotlin</depends>
+    <depends optional="true" config-file="python.xml">com.intellij.modules.python</depends>
+    <depends optional="true" config-file="ruby.xml">com.intellij.modules.ruby</depends>
+    <depends optional="true" config-file="yaml.xml">org.jetbrains.plugins.yaml</depends>
+    <depends optional="true" config-file="go.xml">org.jetbrains.plugins.go</depends>
+    <depends optional="true" config-file="php.xml">com.jetbrains.php</depends>
+    <depends optional="true" config-file="js.xml">JavaScript</depends>
+    <depends optional="true" config-file="xml.xml">com.intellij.modules.xml</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <preloadingActivity implementation="com.github.shiraji.yaemoji.action.EmojiPreloadingActivity"/>
+
+        <completion.contributor language="any"
+                                implementationClass="com.github.shiraji.yaemoji.contributor.EmojiCompletionContributor"/>
+        <completion.contributor language="TEXT"
+                                order="first, before commitCompletion"
+                                implementationClass="com.github.shiraji.yaemoji.contributor.TextCompletionContributor"/>
     </extensions>
 
     <actions>
