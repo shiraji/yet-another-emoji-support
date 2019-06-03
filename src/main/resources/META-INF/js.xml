@@ -1,0 +1,7 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <completion.contributor language="JavaScript"
+                                implementationClass="com.github.shiraji.yaemoji.contributor.JSEmojiCompletionContributor"/>
+
+    </extensions>
+</idea-plugin>
