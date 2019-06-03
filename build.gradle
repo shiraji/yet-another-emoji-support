@@ -23,13 +23,14 @@ version '1.0-SNAPSHOT'
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version 'IC-2018.1.6'
+    version 'IC-2018.1.4'
     plugins = [
             // https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
             'Kotlin',
             'PythonCore:2018.1.181.5087.50',
-            'org.jetbrains.plugins.ruby:2018.1.20180711',
-            'yaml'
+            'org.jetbrains.plugins.ruby:2018.1.20180515',
+            'yaml',
+            'org.jetbrains.plugins.go:181.5087.39.204'
     ]
     updateSinceUntilBuild = false
 }
