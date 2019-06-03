@@ -28,7 +28,8 @@ intellij {
             // https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
             'Kotlin',
             'PythonCore:2018.1.181.5087.50',
-            'org.jetbrains.plugins.ruby:2018.1.20180711'
+            'org.jetbrains.plugins.ruby:2018.1.20180711',
+            'yaml'
     ]
     updateSinceUntilBuild = false
 }
