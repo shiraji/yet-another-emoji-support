@@ -1,4 +1,4 @@
-<idea-plugin>
+<idea-plugin url="https://plugins.jetbrains.com/plugin/12512-yet-another-emoji-support">
     <id>com.github.shiraji.yaemoji</id>
     <name>Yet another emoji support</name>
     <vendor email="isogai.shiraji@gmail.com" url="https://github.com/shiraji">Shiraji</vendor>
@@ -16,6 +16,8 @@
     <a href="https://github.com/shiraji/yet-another-emoji-support">Source</a> |
     <a href="https://github.com/shiraji/yet-another-emoji-support/issues">Issues</a>
     ]]></description>
+
+    <idea-version since-build="181.5087"/>
 
     <depends>com.intellij.modules.lang</depends>
     <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
