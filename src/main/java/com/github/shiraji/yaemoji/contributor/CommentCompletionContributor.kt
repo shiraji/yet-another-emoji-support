@@ -6,7 +6,7 @@ import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.psi.PsiComment
 
-class EmojiCompletionContributor : CompletionContributor() {
+class CommentCompletionContributor : CompletionContributor() {
     init {
         val provider = EmojiCompletionProvider()
 
