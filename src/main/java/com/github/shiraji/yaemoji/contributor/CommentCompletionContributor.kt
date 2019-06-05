@@ -1,15 +1,10 @@
 package com.github.shiraji.yaemoji.contributor
 
-import com.github.shiraji.yaemoji.domain.EmojiCompletionProvider
-import com.intellij.codeInsight.completion.CompletionContributor
-import com.intellij.codeInsight.completion.CompletionType
+import com.intellij.patterns.ElementPattern
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.psi.PsiComment
+import com.intellij.psi.PsiElement
 
-class CommentCompletionContributor : CompletionContributor() {
-    init {
-        val provider = EmojiCompletionProvider()
-
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement(PsiComment::class.java), provider)
-    }
+class CommentCompletionContributor : EmojiCompletionContributor() {
+    override val place: ElementPattern<out PsiElement> = PlatformPatterns.psiElement(PsiComment::class.java)
 }

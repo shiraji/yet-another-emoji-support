@@ -7,12 +7,16 @@ import com.intellij.codeInsight.completion.CompletionProvider
 import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.codeInsight.completion.PrefixMatcher
+import com.intellij.patterns.ElementPattern
+import com.intellij.patterns.ObjectPattern
 import com.intellij.patterns.PsiElementPattern
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 
-abstract class EmojiCompletionContributor(protected val provider: CompletionProvider<CompletionParameters> = EmojiCompletionProvider()) : CompletionContributor() {
-    abstract val place: PsiElementPattern.Capture<out PsiElement>
+abstract class EmojiCompletionContributor(
+    protected val provider: CompletionProvider<CompletionParameters> = EmojiCompletionProvider()
+) : CompletionContributor() {
+    abstract val place: ElementPattern<out PsiElement>
 
     override fun fillCompletionVariants(parameters: CompletionParameters, result: CompletionResultSet) {
         super.fillCompletionVariants(parameters, result)
