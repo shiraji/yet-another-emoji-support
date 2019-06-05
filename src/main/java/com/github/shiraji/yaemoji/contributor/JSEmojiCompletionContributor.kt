@@ -1,18 +1,15 @@
 package com.github.shiraji.yaemoji.contributor
 
-import com.github.shiraji.yaemoji.domain.EmojiCompletionProvider
-import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.lang.javascript.psi.JSLiteralExpression
 import com.intellij.patterns.PlatformPatterns
+import com.intellij.patterns.PsiElementPattern
+import com.intellij.psi.PsiElement
 
-class JSEmojiCompletionContributor : CompletionContributor() {
+class JSEmojiCompletionContributor : EmojiCompletionContributor() {
+    override val place: PsiElementPattern.Capture<PsiElement> = PlatformPatterns.psiElement().inside(JSLiteralExpression::class.java)
+
     init {
-        val provider = EmojiCompletionProvider()
-
-        extend(CompletionType.BASIC,
-                // For now, let's ignore code inside JSStringTemplateExpression => ` $( foo ) ` because there is no class for $( foo )
-                PlatformPatterns.psiElement().inside(JSLiteralExpression::class.java),
-                provider)
+        extend(CompletionType.BASIC, place, provider)
     }
 }

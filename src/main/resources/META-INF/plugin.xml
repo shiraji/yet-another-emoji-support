@@ -24,7 +24,7 @@
         <preloadingActivity implementation="com.github.shiraji.yaemoji.action.EmojiPreloadingActivity"/>
 
         <completion.contributor language="any"
-                                implementationClass="com.github.shiraji.yaemoji.contributor.EmojiCompletionContributor"/>
+                                implementationClass="com.github.shiraji.yaemoji.contributor.CommentCompletionContributor"/>
         <completion.contributor language="TEXT"
                                 order="first, before commitCompletion"
                                 implementationClass="com.github.shiraji.yaemoji.contributor.TextCompletionContributor"/>
