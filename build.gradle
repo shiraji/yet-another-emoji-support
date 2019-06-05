@@ -33,6 +33,7 @@ intellij {
             'org.jetbrains.plugins.go:181.5087.39.204', // https://plugins.jetbrains.com/plugin/9568-go
             'com.jetbrains.php:181.5087.11', // https://plugins.jetbrains.com/plugin/6610-php
             'JavaScriptLanguage',
+            'markdown'
     ]
     updateSinceUntilBuild = false
 }
