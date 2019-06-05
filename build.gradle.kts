@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "com.github.shiraji"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -43,11 +43,15 @@ intellij {
 val patchPluginXml: PatchPluginXmlTask by tasks
 
 patchPluginXml {
-    changeNotes {
+    changeNotes(
         """
-
+        <p>1.0.0</p>
+        <ul>
+          <li>Initial release</li>
+        </ul>
+        <p>Older version changes are listed on <a href="https://github.com/shiraji/yet-another-emoji-support/blob/master/CHANGELOG.md">CHANGELOG.md</a></p>
         """.trimIndent()
-    }
+    )
 }
 
 dependencies {

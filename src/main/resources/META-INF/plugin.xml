@@ -1,10 +1,20 @@
 <idea-plugin>
     <id>com.github.shiraji.yaemoji</id>
-    <name>Yet Another Emoji support</name>
+    <name>Yet another emoji support</name>
     <vendor email="isogai.shiraji@gmail.com" url="https://github.com/shiraji">Shiraji</vendor>
 
     <description><![CDATA[
-    Yet another emoji support plugin yay!!!!!!!!!!!!!
+    This plugin inserts emoji in editors using content assist 💐
+    <ul>
+    <li>Type ":" and emoji name</li>
+    <li>Open code completion</li>
+    </ul>
+    <br/><img src="https://github.com/shiraji/yet-another-emoji-support/raw/master/website/images/emoji.gif"/>
+    <br/>
+    This plugin supports Go, Java, JavaScript, TypeScript, Kotlin, PHP, Python, Ruby, XML, YAML. You can insert emoji in the commit dialog 😎
+    <br/>
+    <a href="https://github.com/shiraji/yet-another-emoji-support">Source</a> |
+    <a href="https://github.com/shiraji/yet-another-emoji-support/issues">Issues</a>
     ]]></description>
 
     <depends>com.intellij.modules.lang</depends>
