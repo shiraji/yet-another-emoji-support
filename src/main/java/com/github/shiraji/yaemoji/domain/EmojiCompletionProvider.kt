@@ -17,7 +17,7 @@ class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
         // no -1 because downTo method is inclusive + the plugin need index of the text
         val end = parameters.editor.caretModel.currentCaret.visualLineStart
         val text = parameters.editor.document.text
-        var colonPosition = start
+        var colonPosition = -1
         loop@ for (index in start downTo end) {
             val current = text[index]
             when {
@@ -28,6 +28,8 @@ class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
                 }
             }
         }
+
+        if (colonPosition < 0) return
 
         val callable = Callable {
             EmojiDataManager.emojiList.forEach {
