@@ -26,6 +26,7 @@ class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
                     colonPosition = index
                     break@loop
                 }
+                index == end -> return
             }
         }
 
