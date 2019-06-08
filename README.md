@@ -1,5 +1,11 @@
 # 🚀 Yet another emoji support 😎
 
+[![Software License](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](https://github.com/shiraji/find-pull-request/blob/master/LICENSE)
+[![CircleCI](https://circleci.com/gh/shiraji/yet-another-emoji-support.svg?style=svg)](https://circleci.com/gh/shiraji/yet-another-emoji-support)
+[![codecov](https://codecov.io/gh/shiraji/yet-another-emoji-support/branch/master/graph/badge.svg)](https://codecov.io/gh/shiraji/yet-another-emoji-support)
+[![Version](https://img.shields.io/jetbrains/plugin/v/12512-yet-another-emoji-support.svg)](https://plugins.jetbrains.com/plugin/12512-yet-another-emoji-support)
+[![Download](https://img.shields.io/jetbrains/plugin/d/12512-yet-another-emoji-support.svg)](https://plugins.jetbrains.com/plugin/12512-yet-another-emoji-support)
+
 ![icon](website/images/icon.png)
 
 This is the IntelliJ plugin that supports inserting emoji in editor using content assist.

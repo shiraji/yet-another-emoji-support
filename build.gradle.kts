@@ -1,4 +1,5 @@
 import org.jetbrains.intellij.tasks.PatchPluginXmlTask
+import org.jetbrains.intellij.tasks.PublishTask
 
 buildscript {
     repositories {
@@ -14,7 +15,23 @@ plugins {
 }
 
 group = "com.github.shiraji"
-version = "1.0.1"
+version = System.getProperty("VERSION") ?: "0.0.1"
+
+val test by tasks.getting(Test::class) {
+    useJUnitPlatform()
+    maxHeapSize = "3g"
+}
+
+jacoco {
+    toolVersion = "0.8.2"
+}
+
+val jacocoTestReport by tasks.existing(JacocoReport::class) {
+    reports {
+        xml.isEnabled = true
+        html.isEnabled = true
+    }
+}
 
 repositories {
     mavenCentral()
@@ -54,6 +71,13 @@ patchPluginXml {
     )
 }
 
+val publishPlugin: PublishTask by tasks
+
+publishPlugin {
+    token(System.getenv("HUB_TOKEN"))
+    channels(System.getProperty("CHANNELS") ?: "beta")
+}
+
 dependencies {
     val kotlinVersion: String by project
     compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
@@ -82,6 +106,23 @@ tasks.register("ktlintFormat", JavaExec::class) {
     classpath = configurations["ktlint"]
     main = "com.github.shyiko.ktlint.Main"
     args("-F", "src/**/*.kt")
+}
+
+tasks.register("resolveDependencies") {
+    doLast {
+        project.rootProject.allprojects.forEach {subProject ->
+            subProject.buildscript.configurations.forEach {configuration ->
+                if (configuration.isCanBeResolved) {
+                    configuration.resolve()
+                }
+            }
+            subProject.configurations.forEach {configuration ->
+                if (configuration.isCanBeResolved) {
+                    configuration.resolve()
+                }
+            }
+        }
+    }
 }
 
 inline operator fun <T : Task> T.invoke(a: T.() -> Unit): T = apply(a)
