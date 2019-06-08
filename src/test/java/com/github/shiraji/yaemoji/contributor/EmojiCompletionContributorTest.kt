@@ -12,7 +12,7 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Nested
