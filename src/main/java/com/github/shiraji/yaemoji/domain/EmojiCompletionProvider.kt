@@ -34,13 +34,14 @@ class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
 
         val callable = Callable {
             EmojiDataManager.emojiList.forEach {
-                result.addElement(LookupElementBuilder.create(it.label)
+                val keywordsString = if (it.keywords.isEmpty()) "" else it.keywords.joinToString(prefix = "(", postfix = ")")
+                result.addElement(LookupElementBuilder.create("${it.label} $keywordsString")
                         .withIcon(it.icon)
                         .withInsertHandler { insertionContext, _ ->
                             val document = insertionContext.document
                             document.replaceString(colonPosition, insertionContext.tailOffset, it.emoji)
                         }
-                        .withPresentableText("${it.label} ${it.emoji}")
+                        .withPresentableText(":${it.label}: ${it.emoji} $keywordsString")
                 )
             }
         }
