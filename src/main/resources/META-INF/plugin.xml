@@ -31,6 +31,7 @@
     <depends optional="true" config-file="js.xml">JavaScript</depends>
     <depends optional="true" config-file="xml.xml">com.intellij.modules.xml</depends>
     <depends optional="true" config-file="markdown.xml">org.intellij.plugins.markdown</depends>
+    <depends optional="true" config-file="groovy.xml">org.intellij.groovy</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <preloadingActivity implementation="com.github.shiraji.yaemoji.action.EmojiPreloadingActivity"/>
