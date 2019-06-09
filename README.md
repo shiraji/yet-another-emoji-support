@@ -19,9 +19,9 @@ The reason it named "Yet another" is the fact that I ([@shiraji](https://github.
 
 ![screenshot](website/images/emoji.gif)
 
-## 📛 Name 📛
+## 📛 Name of emoji 📛
 
-The name of emoji comes from "CLDR Short Name". All spaces are replaced with "_".
+The name of emoji comes from "CLDR Short Name". All spaces are replaced with "_". You can also search emoji by its keywords.
 
 ## 🌍 Supported inserting 🌎 location 🌏
 
@@ -34,13 +34,15 @@ The emoji content assist is limited to show following location:
 The list of supported languages are:
 
 * Go
+* Groovy
 * Java
 * JavaScript
-* TypeScript
 * Kotlin
 * PHP
 * Python
 * Ruby
+* Scala
+* TypeScript
 * XML
 * YAML
 
@@ -57,7 +59,6 @@ Use the IDE's plugin manager to install the latest version of the plugin.
 ## 🙈 Known Issue 🙉
 
 * Some emoji are not rendered like US flag 🇺🇸 (See https://youtrack.jetbrains.com/issue/IDEA-166522)
-* Comment in XML file does not work
 * JS/TS's Template Strings intend to not to work because IntelliJ does not know the cursor is located inside or `${}` or not
 
 
