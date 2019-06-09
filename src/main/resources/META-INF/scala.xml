@@ -1,0 +1,6 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <completion.contributor language="Scala"
+                                implementationClass="com.github.shiraji.yaemoji.contributor.ScalaEmojiCompletionContributor"/>
+    </extensions>
+</idea-plugin>

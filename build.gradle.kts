@@ -52,7 +52,8 @@ intellij {
             "com.jetbrains.php:181.5087.11", // https://plugins.jetbrains.com/plugin/6610-php
             "JavaScriptLanguage",
             "markdown",
-            "Groovy"
+            "Groovy",
+            "org.intellij.scala:2018.1.4" // https://plugins.jetbrains.com/plugin/1347-scala
     )
     updateSinceUntilBuild = false
 }
