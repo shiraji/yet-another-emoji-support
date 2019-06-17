@@ -64,12 +64,9 @@ val patchPluginXml: PatchPluginXmlTask by tasks
 patchPluginXml {
     changeNotes(
         """
-        <p>1.0.2</p>
+        <p>1.0.3</p>
         <ul>
-          <li>Support Groovy #10</li>
-          <li>Support Scala #11</li>
-          <li>Add keyword #25</li>
-          <li>Remove recently add mark ⊛ #26</li>
+          <li>Add support for more text files (txt, MD, ... files) #32 Thanks @olivmindee for reporting!</li>
         </ul>
         <p>Older version changes are listed on <a href="https://github.com/shiraji/yet-another-emoji-support/blob/master/CHANGELOG.md">CHANGELOG.md</a></p>
         """.trimIndent()

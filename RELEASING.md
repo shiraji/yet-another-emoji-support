@@ -4,4 +4,6 @@
 
 # To release stable channel
 
+* Update CHANGELOG.md
+* Update build.gradle.kts 
 * Create a tag with prefix `release-` e.g. `release-1.0.1` publish the plugin version 1.0.1 to stable channel
