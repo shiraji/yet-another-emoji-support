@@ -10,10 +10,10 @@ import java.util.concurrent.Callable
 class EmojiPreloadingActivity : PreloadingActivity() {
     override fun preload(indicator: ProgressIndicator) {
         val callable = Callable<List<EmojiCompletion>> {
-            javaClass.getResourceAsStream("/emojis/emoji.csv").use {
-                it.bufferedReader().use {
-                    it.readLines().map {
-                        EmojiCompletion.fromCsv(it)
+            javaClass.getResourceAsStream("/emojis/emoji.csv").use { inputStream ->
+                inputStream.bufferedReader().use { reader ->
+                    reader.readLines().map { line ->
+                        EmojiCompletion.fromCsv(line)
                     }
                 }
             }
