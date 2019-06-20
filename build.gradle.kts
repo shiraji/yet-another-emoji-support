@@ -53,7 +53,8 @@ intellij {
             "JavaScriptLanguage",
             "markdown",
             "Groovy",
-            "org.intellij.scala:2018.1.4" // https://plugins.jetbrains.com/plugin/1347-scala
+            "org.intellij.scala:2018.1.4", // https://plugins.jetbrains.com/plugin/1347-scala
+            "org.rust.lang:0.2.0.2107-181" // https://plugins.jetbrains.com/plugin/8182-rust
     )
     updateSinceUntilBuild = false
 }
