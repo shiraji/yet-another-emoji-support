@@ -52,17 +52,20 @@ class EmojiCompletionContributorTest {
         }
 
         @Test
-        fun `Should do nothing if prefix does not contains semi colon`() {
+        fun `Should just pass the prefix if prefix does not contains semi colon`() {
             val parameters: CompletionParameters = mockk()
             every { parameters.completionType } returns CompletionType.BASIC
             every { parameters.position } returns mockk()
             every { mockPlace.accepts(any()) } returns true
             val result: CompletionResultSet = mockk()
             every { result.prefixMatcher.prefix } returns "asdfajsd"
+            val slot = slot<String>()
+            every { result.withPrefixMatcher(capture(slot)) } returns mockk()
+            every { provider.addCompletionVariants(any(), any(), any()) } just Runs
 
             target.fillCompletionVariants(parameters, result)
 
-            verify(exactly = 0) { provider.addCompletionVariants(any(), any(), any()) }
+            assertEquals("asdfajsd", slot.captured)
         }
 
         @Test
