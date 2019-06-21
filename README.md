@@ -41,6 +41,7 @@ The list of supported languages are:
 * PHP
 * Python
 * Ruby
+* Rust
 * Scala
 * TypeScript
 * XML
