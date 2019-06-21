@@ -1,5 +1,6 @@
 import org.jetbrains.intellij.tasks.PatchPluginXmlTask
 import org.jetbrains.intellij.tasks.PublishTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     repositories {
@@ -20,6 +21,13 @@ version = System.getProperty("VERSION") ?: "0.0.1"
 val test by tasks.getting(Test::class) {
     useJUnitPlatform()
     maxHeapSize = "3g"
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+    }
 }
 
 jacoco {
@@ -54,7 +62,11 @@ intellij {
             "markdown",
             "Groovy",
             "org.intellij.scala:2018.1.4", // https://plugins.jetbrains.com/plugin/1347-scala
-            "org.rust.lang:0.2.0.2107-181" // https://plugins.jetbrains.com/plugin/8182-rust
+            "org.rust.lang:0.2.0.2107-181", // https://plugins.jetbrains.com/plugin/8182-rust
+            "CSS",
+            "java-i18n",
+            "properties",
+            "coverage"
     )
     updateSinceUntilBuild = false
 }
@@ -87,6 +99,8 @@ dependencies {
 
     testImplementation("io.mockk:mockk:1.8.6")
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
+    testImplementation("org.assertj:assertj-core:3.11.1")
 }
 
 configurations {
