@@ -29,8 +29,12 @@ jobs:
       - *save
 
       - run:
-          name: ktlint and buildPlugin
-          command: ./gradlew ktlintCheck verifyPlugin test jacocoTestReport --no-daemon --max-workers 2
+          name: ktlint and verify plugin
+          command: ./gradlew ktlintCheck verifyPlugin --no-daemon --max-workers 2
+
+      - run:
+          name: test
+          command: ./gradlew test jacocoTestReport --no-daemon --max-workers 2
 
       - store_test_results:
           path: build/test-results
