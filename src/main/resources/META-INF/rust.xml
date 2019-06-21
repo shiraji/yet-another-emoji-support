@@ -1,0 +1,6 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <completion.contributor language="Rust"
+                                implementationClass="com.github.shiraji.yaemoji.contributor.RustEmojiCompletionContributor"/>
+    </extensions>
+</idea-plugin>
