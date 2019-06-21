@@ -14,8 +14,7 @@ class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
         if (parameters.editor.isOneLineMode) return
         // -1 because it should check with text's index
         val start = parameters.editor.caretModel.currentCaret.offset - 1
-        // no -1 because downTo method is inclusive + the plugin need index of the text
-        val end = parameters.editor.caretModel.currentCaret.visualLineStart
+        val end = maxOf(parameters.position.textRange.startOffset - 1, 0)
         val text = parameters.editor.document.text
         var colonPosition = -1
         loop@ for (index in start downTo end) {
