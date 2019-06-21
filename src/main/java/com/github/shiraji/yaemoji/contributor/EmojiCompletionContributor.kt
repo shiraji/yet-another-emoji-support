@@ -26,7 +26,7 @@ abstract class EmojiCompletionContributor(
 
     private fun PrefixMatcher.toEmojiPrefix(): String? {
         val currentPrefix = prefix
-        if (!currentPrefix.contains(Regex(":"))) return null
+        if (!currentPrefix.contains(Regex(":"))) return prefix
         val newPrefix = currentPrefix.split(Regex(":")).last()
         return if (newPrefix.contains(Regex("\\s"))) null else newPrefix
     }
