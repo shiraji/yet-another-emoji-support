@@ -71,23 +71,12 @@ intellij {
     updateSinceUntilBuild = false
 }
 
-
 val patchPluginXml: PatchPluginXmlTask by tasks
-
 patchPluginXml {
-    changeNotes(
-        """
-        <p>1.0.3</p>
-        <ul>
-          <li>Add support for more text files (txt, MD, ... files) #32 Thanks @olivmindee for reporting!</li>
-        </ul>
-        <p>Older version changes are listed on <a href="https://github.com/shiraji/yet-another-emoji-support/blob/master/CHANGELOG.md">CHANGELOG.md</a></p>
-        """.trimIndent()
-    )
+    changeNotes(project.file("LATEST.txt").readText())
 }
 
 val publishPlugin: PublishTask by tasks
-
 publishPlugin {
     token(System.getenv("HUB_TOKEN"))
     channels(System.getProperty("CHANNELS") ?: "beta")
