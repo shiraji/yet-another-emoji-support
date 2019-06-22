@@ -29,6 +29,11 @@ data class EmojiCompletion(
             )
         }
 
+        /**
+         * Some emoji keywords are the same / contained with emoji name
+         * This plugin has already a lot of information in completion dialog
+         * So, this method try to delete useless keywords that should match with emoji name
+         */
         private fun createKeywords(label: String, target: String): List<String> {
             val candidates = target.split(" | ")
             return candidates.filterNot { label.contains(it) }
