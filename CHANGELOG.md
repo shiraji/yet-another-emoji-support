@@ -1,3 +1,8 @@
+### [release-1.0.4](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.0.4)
+
+* Support Rust #36 Thanks @t-kameyama for implementing this feature!
+* Fix "Some language does not work #37"
+
 ### [release-1.0.3](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.0.3)
 
 * Add support for more text files (txt, MD, ... files) #32 Thanks @olivmindee for reporting!
