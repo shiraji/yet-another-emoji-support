@@ -1,0 +1,1 @@
+text = "aaa :<caret> bbb"
