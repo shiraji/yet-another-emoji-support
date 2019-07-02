@@ -1,0 +1,1 @@
+val text = "aaa 🦖 adf"

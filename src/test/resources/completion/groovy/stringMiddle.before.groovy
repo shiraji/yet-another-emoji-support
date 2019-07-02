@@ -1,0 +1,1 @@
+def text2 = "aaa :T-Rex<caret> vvv"
