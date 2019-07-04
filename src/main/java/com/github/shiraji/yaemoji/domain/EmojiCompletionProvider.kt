@@ -4,10 +4,7 @@ import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionProvider
 import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElementBuilder
-import com.intellij.openapi.application.ex.ApplicationUtil.runWithCheckCanceled
-import com.intellij.openapi.progress.EmptyProgressIndicator
 import com.intellij.util.ProcessingContext
-import java.util.concurrent.Callable
 
 class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
     override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet) {
@@ -31,20 +28,17 @@ class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
 
         if (colonPosition < 0) return
 
-        val callable = Callable {
-            EmojiDataManager.emojiList.forEach {
-                val keywordsString = if (it.keywords.isEmpty()) "" else it.keywords.joinToString(prefix = "(", postfix = ")")
-                result.addElement(LookupElementBuilder.create("${it.label} $keywordsString")
-                        .withIcon(it.icon)
-                        .withInsertHandler { insertionContext, _ ->
-                            val document = insertionContext.document
-                            document.replaceString(colonPosition, insertionContext.tailOffset, it.emoji)
-                        }
-                        .withPresentableText(":${it.label}: ${it.emoji} $keywordsString")
-                )
-            }
+        EmojiDataManager.emojiList.forEach {
+            val keywordsString =
+                if (it.keywords.isEmpty()) "" else it.keywords.joinToString(prefix = "(", postfix = ")")
+            result.addElement(LookupElementBuilder.create("${it.label} $keywordsString")
+                .withIcon(it.icon)
+                .withInsertHandler { insertionContext, _ ->
+                    val document = insertionContext.document
+                    document.replaceString(colonPosition, insertionContext.tailOffset, it.emoji)
+                }
+                .withPresentableText(":${it.label}: ${it.emoji} $keywordsString")
+            )
         }
-
-        runWithCheckCanceled(callable, EmptyProgressIndicator())
     }
 }
