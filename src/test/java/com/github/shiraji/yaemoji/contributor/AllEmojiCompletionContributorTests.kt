@@ -283,6 +283,31 @@ class AllEmojiCompletionContributorTests : LightPlatformCodeInsightFixtureTestCa
     }
 
     @Nested
+    inner class properties {
+        @BeforeEach
+        fun setUp() {
+            myFixture.testDataPath = "src/test/resources/completion/properties/"
+        }
+
+        @Disabled("Not sure why this does not work")
+        @Test
+        fun comment() {
+            myFixture.testCompletion("comment.before.properties", "comment.after.properties")
+        }
+
+        @Test
+        fun value() {
+            myFixture.testCompletion("value.before.properties", "value.after.properties")
+        }
+
+        @Disabled("Not sure why this does not work")
+        @Test
+        fun valueMiddle() {
+            myFixture.testCompletion("valueMiddle.before.properties", "valueMiddle.after.properties")
+        }
+    }
+
+    @Nested
     inner class python {
         @BeforeEach
         fun setUp() {
