@@ -34,6 +34,7 @@
     <depends optional="true" config-file="groovy.xml">org.intellij.groovy</depends>
     <depends optional="true" config-file="scala.xml">org.intellij.scala</depends>
     <depends optional="true" config-file="rust.xml">org.rust.lang</depends>
+    <depends optional="true" config-file="properties.xml">com.intellij.properties</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <preloadingActivity implementation="com.github.shiraji.yaemoji.action.EmojiPreloadingActivity"/>

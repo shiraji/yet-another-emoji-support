@@ -4,6 +4,7 @@ import com.github.shiraji.yaemoji.domain.EmojiCompletion
 import com.github.shiraji.yaemoji.domain.EmojiDataManager
 import com.intellij.ide.highlighter.JavaFileType
 import com.intellij.lang.javascript.JavaScriptFileType
+import com.intellij.lang.properties.PropertiesFileType
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.fileTypes.PlainTextFileType
 import com.intellij.testFramework.builders.ModuleFixtureBuilder
@@ -86,6 +87,16 @@ class CoverAllEmojiCompletionContributorTests : CodeInsightFixtureTestCase<Modul
                     PlainTextFileType.INSTANCE, """
                      asdfasdf :<caret> asdf
                 """.trimIndent()
+                ),
+                arguments(
+                    PropertiesFileType.INSTANCE, """
+                        # :<caret>
+                    """.trimIndent()
+                ),
+                arguments(
+                    PropertiesFileType.INSTANCE, """
+                        foo=aaa:T-Rex<caret>bbb
+                    """.trimIndent()
                 )
             )
         }
