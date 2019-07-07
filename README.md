@@ -39,6 +39,7 @@ The list of supported languages are:
 * JavaScript
 * Kotlin
 * PHP
+* Properties
 * Python
 * Ruby
 * Rust
