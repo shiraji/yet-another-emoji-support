@@ -1,3 +1,8 @@
+### [release-1.0.5](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.0.5)
+
+* Support properties #42
+* Fix "runWithCheckCanceled might be useless #48"
+
 ### [release-1.0.4](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.0.4)
 
 * Support Rust #36 Thanks @t-kameyama for implementing this feature!
