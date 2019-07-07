@@ -7,6 +7,7 @@ import com.intellij.lang.javascript.JavaScriptFileType
 import com.intellij.lang.properties.PropertiesFileType
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.fileTypes.PlainTextFileType
+import com.intellij.psi.css.CssFileType
 import com.intellij.testFramework.builders.ModuleFixtureBuilder
 import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
 import com.jetbrains.php.lang.PhpFileType
@@ -96,6 +97,11 @@ class CoverAllEmojiCompletionContributorTests : CodeInsightFixtureTestCase<Modul
                 arguments(
                     PropertiesFileType.INSTANCE, """
                         foo=aaa:T-Rex<caret>bbb
+                    """.trimIndent()
+                ),
+                arguments(
+                    CssFileType.INSTANCE, """
+                        /* :<caret> */
                     """.trimIndent()
                 )
             )

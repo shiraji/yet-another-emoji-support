@@ -61,6 +61,20 @@ class AllEmojiCompletionContributorTests : LightPlatformCodeInsightFixtureTestCa
     }
 
     @Nested
+    inner class css {
+        @BeforeEach
+        fun setUp() {
+            myFixture.testDataPath = "src/test/resources/completion/css/"
+        }
+
+        @Disabled("Not sure why this does not work")
+        @Test
+        fun comment() {
+            myFixture.testCompletion("comment.before.css", "comment.after.css")
+        }
+    }
+
+    @Nested
     inner class go {
         @BeforeEach
         fun setUp() {
@@ -428,6 +442,19 @@ class AllEmojiCompletionContributorTests : LightPlatformCodeInsightFixtureTestCa
         @Test
         fun stringTemplate() {
             noHits(ScalaFileType.INSTANCE, "stringTemplate.scala.nohit")
+        }
+    }
+
+    @Nested
+    inner class sql {
+        @BeforeEach
+        fun setUp() {
+            myFixture.testDataPath = "src/test/resources/completion/sql/"
+        }
+
+        @Test
+        fun comment() {
+            myFixture.testCompletion("comment.before.sql", "comment.after.sql")
         }
     }
 
