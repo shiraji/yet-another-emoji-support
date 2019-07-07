@@ -63,6 +63,7 @@ intellij {
             "Groovy",
             "org.intellij.scala:2018.1.4", // https://plugins.jetbrains.com/plugin/1347-scala
             "org.rust.lang:0.2.0.2107-181", // https://plugins.jetbrains.com/plugin/8182-rust
+            "com.intellij.database:182.3684.70", // https://plugins.jetbrains.com/plugin/10925-database-tools-and-sql
             "CSS",
             "java-i18n",
             "properties",
