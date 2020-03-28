@@ -29,8 +29,8 @@ class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
         if (colonPosition < 0) return
 
         EmojiDataManager.emojiList.forEach {
-            val keywordsString =
-                if (it.keywords.isEmpty()) "" else it.keywords.joinToString(prefix = "(", postfix = ")")
+            val keywords = it.keywords
+            val keywordsString = if (keywords.isEmpty()) "" else keywords.joinToString(prefix = "(", postfix = ")")
             result.addElement(LookupElementBuilder.create("${it.label} $keywordsString")
                 .withIcon(it.icon)
                 .withInsertHandler { insertionContext, _ ->
