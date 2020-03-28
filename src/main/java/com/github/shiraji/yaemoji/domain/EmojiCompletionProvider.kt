@@ -33,6 +33,11 @@ class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
             val keywordsString = if (keywords.isEmpty()) "" else keywords.joinToString(prefix = "(", postfix = ")")
             result.addElement(LookupElementBuilder.create("${it.label} $keywordsString")
                 .withIcon(it.icon)
+                .also { builder ->
+                    keywords.forEach { keyword ->
+                        builder.withLookupString(keyword)
+                    }
+                }
                 .withInsertHandler { insertionContext, _ ->
                     val document = insertionContext.document
                     document.replaceString(colonPosition, insertionContext.tailOffset, it.emoji)
