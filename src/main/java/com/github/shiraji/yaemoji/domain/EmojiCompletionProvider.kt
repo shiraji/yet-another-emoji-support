@@ -7,7 +7,11 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.util.ProcessingContext
 
 class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
-    override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet) {
+    override fun addCompletions(
+        parameters: CompletionParameters,
+        context: ProcessingContext,
+        result: CompletionResultSet
+    ) {
         if (parameters.editor.isOneLineMode) return
         // -1 because it should check with text's index
         val start = parameters.editor.caretModel.currentCaret.offset - 1
@@ -29,10 +33,15 @@ class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
         if (colonPosition < 0) return
 
         EmojiDataManager.emojiList.forEach {
-            val keywordsString =
-                if (it.keywords.isEmpty()) "" else it.keywords.joinToString(prefix = "(", postfix = ")")
+            val keywords = it.keywords
+            val keywordsString = if (keywords.isEmpty()) "" else keywords.joinToString(prefix = "(", postfix = ")")
             result.addElement(LookupElementBuilder.create("${it.label} $keywordsString")
                 .withIcon(it.icon)
+                .also { builder ->
+                    keywords.forEach { keyword ->
+                        builder.withLookupString(keyword)
+                    }
+                }
                 .withInsertHandler { insertionContext, _ ->
                     val document = insertionContext.document
                     document.replaceString(colonPosition, insertionContext.tailOffset, it.emoji)
