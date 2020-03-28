@@ -1,3 +1,7 @@
+### [release-1.0.6](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.0.6)
+
+* feat: Shortcode integration #57 Thanks @jef for reporting!
+
 ### [release-1.0.5](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.0.5)
 
 * Support properties #42
