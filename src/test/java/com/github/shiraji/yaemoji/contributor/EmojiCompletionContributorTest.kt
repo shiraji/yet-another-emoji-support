@@ -27,93 +27,66 @@ class EmojiCompletionContributorTest {
 
     @Nested
     inner class fillCompletionVariants {
+
         @Test
-        fun `Should do nothing if completionType is not BASIC`() {
+        fun `Should do nothing if completion type is not basic`() {
             val parameters: CompletionParameters = mockk()
             every { parameters.completionType } returns CompletionType.CLASS_NAME
             val result: CompletionResultSet = mockk()
-
             target.fillCompletionVariants(parameters, result)
-
             verify(exactly = 0) { provider.addCompletionVariants(any(), any(), any()) }
         }
 
         @Test
-        fun `Should do nothing if place is not accepts`() {
+        fun `Should do nothing if accept returns false`() {
             val parameters: CompletionParameters = mockk()
             every { parameters.completionType } returns CompletionType.BASIC
             every { parameters.position } returns mockk()
             every { mockPlace.accepts(any()) } returns false
             val result: CompletionResultSet = mockk()
-
             target.fillCompletionVariants(parameters, result)
-
             verify(exactly = 0) { provider.addCompletionVariants(any(), any(), any()) }
         }
 
         @Test
-        fun `Should just pass the prefix if prefix does not contains semi colon`() {
+        fun `Should use new result if colon found`() {
             val parameters: CompletionParameters = mockk()
             every { parameters.completionType } returns CompletionType.BASIC
             every { parameters.position } returns mockk()
             every { mockPlace.accepts(any()) } returns true
+            every { parameters.editor.caretModel.currentCaret.offset } returns 5
+            every { parameters.position.textRange.startOffset } returns 0
+            every { parameters.editor.document.text } returns ":what"
+            every { parameters.editor.document.getText(any()) } returns ":what"
             val result: CompletionResultSet = mockk()
-            every { result.prefixMatcher.prefix } returns "asdfajsd"
-            val slot = slot<String>()
-            every { result.withPrefixMatcher(capture(slot)) } returns mockk()
-            every { provider.addCompletionVariants(any(), any(), any()) } just Runs
+            val newResult: CompletionResultSet = mockk()
+            every { result.withPrefixMatcher(any<String>()) } returns newResult
+            val slot = slot<CompletionResultSet>()
+            every { provider.addCompletionVariants(any(), any(), capture(slot)) } just Runs
 
             target.fillCompletionVariants(parameters, result)
 
-            assertEquals("asdfajsd", slot.captured)
+            verify { result.withPrefixMatcher(any<String>()) }
+            assertEquals(newResult, slot.captured)
         }
 
         @Test
-        fun `Should do nothing if prefix contains semi colon but last segment contains space`() {
+        fun `Should use parameter result if colon not found`() {
             val parameters: CompletionParameters = mockk()
             every { parameters.completionType } returns CompletionType.BASIC
             every { parameters.position } returns mockk()
             every { mockPlace.accepts(any()) } returns true
+            every { parameters.editor.caretModel.currentCaret.offset } returns 4
+            every { parameters.position.textRange.startOffset } returns 0
+            every { parameters.editor.document.text } returns "what"
+            every { parameters.editor.document.getText(any()) } returns "what"
             val result: CompletionResultSet = mockk()
-            every { result.prefixMatcher.prefix } returns "asdfajsd:aa a"
+            val slot = slot<CompletionResultSet>()
+            every { provider.addCompletionVariants(any(), any(), capture(slot)) } just Runs
 
             target.fillCompletionVariants(parameters, result)
 
-            verify(exactly = 0) { provider.addCompletionVariants(any(), any(), any()) }
-        }
-
-        @Test
-        fun `Should addCompletionVariants if prefix is valid`() {
-            val parameters: CompletionParameters = mockk()
-            every { parameters.completionType } returns CompletionType.BASIC
-            every { parameters.position } returns mockk()
-            every { mockPlace.accepts(any()) } returns true
-            val result: CompletionResultSet = mockk()
-            every { result.prefixMatcher.prefix } returns "asdfajsd:aa"
-            val slot = slot<String>()
-            every { result.withPrefixMatcher(capture(slot)) } returns mockk()
-            every { provider.addCompletionVariants(any(), any(), any()) } just Runs
-
-            target.fillCompletionVariants(parameters, result)
-
-            assertEquals("aa", slot.captured)
-        }
-
-        @Test
-        fun `Should addCompletionVariants if prefix is valid with space other than last segement`() {
-            val parameters: CompletionParameters = mockk()
-            every { parameters.completionType } returns CompletionType.BASIC
-            every { parameters.position } returns mockk()
-            every { mockPlace.accepts(any()) } returns true
-            val result: CompletionResultSet = mockk()
-            every { result.prefixMatcher.prefix } returns "asdfajs d:"
-            val slot = slot<String>()
-            every { result.withPrefixMatcher(capture(slot)) } returns mockk()
-            every { provider.addCompletionVariants(any(), any(), any()) } just Runs
-
-            target.fillCompletionVariants(parameters, result)
-
-            assertEquals("", slot.captured)
+            assertEquals(result, slot.captured)
         }
     }
 }

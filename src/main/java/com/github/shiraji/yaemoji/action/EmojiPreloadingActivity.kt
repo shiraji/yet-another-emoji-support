@@ -9,7 +9,7 @@ import java.util.concurrent.Callable
 
 class EmojiPreloadingActivity : PreloadingActivity() {
     override fun preload(indicator: ProgressIndicator) {
-        val callable = Callable<List<EmojiCompletion>> {
+        val callable = Callable {
             javaClass.getResourceAsStream("/emojis/emoji.csv").use { inputStream ->
                 inputStream.bufferedReader().use { reader ->
                     reader.readLines().map { line ->
@@ -19,9 +19,6 @@ class EmojiPreloadingActivity : PreloadingActivity() {
             }
         }
 
-        val emojiList = runWithCheckCanceled(callable, indicator)
-
-        EmojiDataManager.emojiList.clear()
-        EmojiDataManager.emojiList.addAll(emojiList)
+        EmojiDataManager.emojiList = runWithCheckCanceled(callable, indicator)
     }
 }

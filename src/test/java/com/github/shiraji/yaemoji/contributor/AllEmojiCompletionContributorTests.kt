@@ -27,17 +27,12 @@ import org.rust.lang.RsFileType
 
 class AllEmojiCompletionContributorTests : LightPlatformCodeInsightFixtureTestCase() {
 
-    init {
-        if (EmojiDataManager.emojiList.isEmpty()) {
-            val line = "548\t0x1F996\tT-Rex\tT-Rex | Tyrannosaurus Rex"
-            val completion = EmojiCompletion.fromCsv(line)
-            EmojiDataManager.emojiList.add(completion)
-        }
-    }
-
     @BeforeEach
     fun beforeEach() {
         setUp()
+        val line = "548\t0x1F996\tT-Rex\tT-Rex | Tyrannosaurus Rex"
+        val completion = EmojiCompletion.fromCsv(line)
+        EmojiDataManager.emojiList = listOf(completion)
     }
 
     @AfterEach
@@ -52,7 +47,7 @@ class AllEmojiCompletionContributorTests : LightPlatformCodeInsightFixtureTestCa
         myFixture.configureByText(fileType, content)
         myFixture.completeBasic()
         val lookupStrings = myFixture.lookupElementStrings
-        assertThat(lookupStrings).doesNotContain("T-Rex (Tyrannosaurus Rex)")
+        assertThat(lookupStrings).doesNotContain(":T-Rex: \uD83E\uDD96 (:Tyrannosaurus Rex:)")
     }
 
     private fun getFile(path: String): VirtualFile? {
@@ -67,7 +62,6 @@ class AllEmojiCompletionContributorTests : LightPlatformCodeInsightFixtureTestCa
             myFixture.testDataPath = "src/test/resources/completion/css/"
         }
 
-        @Disabled("Not sure why this does not work")
         @Test
         fun comment() {
             myFixture.testCompletion("comment.before.css", "comment.after.css")
@@ -303,7 +297,6 @@ class AllEmojiCompletionContributorTests : LightPlatformCodeInsightFixtureTestCa
             myFixture.testDataPath = "src/test/resources/completion/properties/"
         }
 
-        @Disabled("Not sure why this does not work")
         @Test
         fun comment() {
             myFixture.testCompletion("comment.before.properties", "comment.after.properties")
@@ -356,7 +349,6 @@ class AllEmojiCompletionContributorTests : LightPlatformCodeInsightFixtureTestCa
             myFixture.testDataPath = "src/test/resources/completion/ruby/"
         }
 
-        @Disabled("Not sure why this does not work")
         @Test
         fun comment() {
             myFixture.testCompletion("comment.before.rb", "comment.after.rb")
@@ -466,13 +458,11 @@ class AllEmojiCompletionContributorTests : LightPlatformCodeInsightFixtureTestCa
             myFixture.testDataPath = "src/test/resources/completion/text/"
         }
 
-        @Disabled("Not sure why this does not work")
         @Test
         fun first() {
             myFixture.testCompletion("first.before.txt", "first.after.txt")
         }
 
-        @Disabled("Not sure why this does not work")
         @Test
         fun middle() {
             myFixture.testCompletion("middle.before.txt", "middle.after.txt")
