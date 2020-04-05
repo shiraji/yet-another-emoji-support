@@ -1,3 +1,7 @@
+### [release-1.0.7](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.0.7)
+
+* Fix "Problem with :100: at commit dialog" #59
+
 ### [release-1.0.6](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.0.6)
 
 * feat: Shortcode integration #57 Thanks @jef for reporting!

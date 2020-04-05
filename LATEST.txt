@@ -1,5 +1,5 @@
-<p>1.0.6</p>
+<p>1.0.7</p>
 <ul>
-    <li>feat: Shortcode integration #57 Thanks @jef for reporting!</li>
+    <li>Fix "Problem with :100: at commit dialog" #59</li>
 </ul>
 <p>Older version changes are listed on <a href="https://github.com/shiraji/yet-another-emoji-support/blob/master/CHANGELOG.md">CHANGELOG.md</a></p>
