@@ -14,12 +14,12 @@ class EmojiPreloadingActivityTest : CodeInsightFixtureTestCase<ModuleFixtureBuil
     @BeforeEach
     fun beforeEach() {
         setUp()
-        EmojiDataManager.emojiList.clear()
+        EmojiDataManager.emojiList = emptyList()
     }
 
     @AfterEach
     fun afterEach() {
-        EmojiDataManager.emojiList.clear()
+        EmojiDataManager.emojiList = emptyList()
         tearDown()
     }
 
