@@ -86,7 +86,7 @@ dependencies {
     val kotlinVersion: String by project
     compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
 
-    testImplementation("io.mockk:mockk:1.8.6")
+    testImplementation("io.mockk:mockk:1.10.6")
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
     testImplementation("org.assertj:assertj-core:3.11.1")
