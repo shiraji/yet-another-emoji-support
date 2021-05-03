@@ -9,6 +9,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
+import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -46,10 +47,10 @@ class EmojiCompletionProviderTest {
             every { parameters.editor.caretModel.currentCaret.offset } returns text.length
             every { parameters.position.textRange.startOffset } returns 0
             every { parameters.editor.document.text } returns text
-                val lookup = slot<LookupElement>()
-                every { result.addElement(capture(lookup)) } just Runs
+            val lookup = slot<LookupElement>()
+            every { result.addElement(capture(lookup)) } just Runs
 
-            EmojiDataManager.emojiList = listOf(EmojiCompletion(1, "T-Rex", "🦖", listOf("Foo"), null))
+            EmojiDataManager.emojiList.add(EmojiCompletion(1, "T-Rex", "🦖", listOf("Foo"), null))
 
             target.addCompletionVariants(parameters, context, result)
 
@@ -63,8 +64,10 @@ class EmojiCompletionProviderTest {
             every { parameters.editor.caretModel.currentCaret.offset } returns text.length
             every { parameters.position.textRange.startOffset } returns 0
             every { parameters.editor.document.text } returns text
-            EmojiDataManager.emojiList = emptyList()
+            every { result.addElement(any()) } just Runs
+            EmojiDataManager.emojiList.clear()
             target.addCompletionVariants(parameters, context, result)
+            verify { result.addElement(any()) }
         }
     }
 }

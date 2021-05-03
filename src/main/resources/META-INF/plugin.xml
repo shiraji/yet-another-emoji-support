@@ -17,8 +17,6 @@
     <a href="https://github.com/shiraji/yet-another-emoji-support/issues">Issues</a>
     ]]></description>
 
-    <idea-version since-build="181.5087"/>
-
     <depends>com.intellij.modules.lang</depends>
     <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
     <depends optional="true" config-file="java.xml">com.intellij.modules.java</depends>
@@ -49,4 +47,8 @@
     <actions>
         <!-- Add your actions here -->
     </actions>
+
+    <applicationListeners>
+        <listener class="com.github.shiraji.yaemoji.listener.EmojiDynamicPluginListener" topic="com.intellij.ide.plugins.DynamicPluginListener" />
+    </applicationListeners>
 </idea-plugin>
