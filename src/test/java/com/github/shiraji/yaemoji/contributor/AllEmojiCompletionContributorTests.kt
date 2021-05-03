@@ -37,6 +37,7 @@ class AllEmojiCompletionContributorTests : BasePlatformTestCase() {
 
     @AfterEach
     fun afterEach() {
+        EmojiDataManager.emojiList.clear()
         tearDown()
     }
 

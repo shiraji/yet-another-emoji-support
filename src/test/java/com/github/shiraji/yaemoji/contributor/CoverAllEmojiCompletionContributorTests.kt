@@ -34,6 +34,7 @@ class CoverAllEmojiCompletionContributorTests : CodeInsightFixtureTestCase<Modul
 
     @AfterEach
     fun afterEach() {
+        EmojiDataManager.emojiList.clear()
         tearDown()
     }
 
