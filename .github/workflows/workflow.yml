@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    container: jetbrains/runtime:jbr11dev8env
+    container: jetbrains/runtime:jbr16env
     steps:
     - uses: actions/checkout@v1
     - uses: actions/cache@v1
