@@ -24,7 +24,7 @@ jobs:
     - name: ktlint and verify plugin
       run: ./gradlew ktlintCheck verifyPlugin --no-daemon --max-workers 2
     - name: test
-      run: ./gradlew test jacocoTestReport --no-daemon --max-workers 2
+      run: ./gradlew test jacocoTestReport --info --stacktrace --no-daemon --max-workers 2
 
   beta-release:
     needs: build-and-test
