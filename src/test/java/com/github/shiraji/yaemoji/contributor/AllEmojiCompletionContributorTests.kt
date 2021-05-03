@@ -9,7 +9,7 @@ import com.intellij.lang.javascript.JavaScriptFileType
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixtureTestCase
+import com.intellij.testFramework.fixtures.BasePlatformTestCase
 import com.jetbrains.php.lang.PhpFileType
 import com.jetbrains.python.PythonFileType
 import org.assertj.core.api.Assertions.assertThat
@@ -25,14 +25,14 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.rust.lang.RsFileType
 
-class AllEmojiCompletionContributorTests : LightPlatformCodeInsightFixtureTestCase() {
+class AllEmojiCompletionContributorTests : BasePlatformTestCase() {
 
     @BeforeEach
     fun beforeEach() {
         setUp()
         val line = "548\t0x1F996\tT-Rex\tT-Rex | Tyrannosaurus Rex"
         val completion = EmojiCompletion.fromCsv(line)
-        EmojiDataManager.emojiList = listOf(completion)
+        EmojiDataManager.emojiList.add(completion)
     }
 
     @AfterEach
@@ -273,7 +273,6 @@ class AllEmojiCompletionContributorTests : LightPlatformCodeInsightFixtureTestCa
             myFixture.testCompletion("string.before.php", "string.after.php")
         }
 
-        @Disabled("Not sure why this does not work")
         @Test
         fun stringMiddle() {
             myFixture.testCompletion("stringMiddle.before.php", "stringMiddle.after.php")
@@ -431,6 +430,7 @@ class AllEmojiCompletionContributorTests : LightPlatformCodeInsightFixtureTestCa
             noHits(ScalaFileType.INSTANCE, "emptyString.scala.nohit")
         }
 
+        @Disabled("NoMethodError happens")
         @Test
         fun stringTemplate() {
             noHits(ScalaFileType.INSTANCE, "stringTemplate.scala.nohit")

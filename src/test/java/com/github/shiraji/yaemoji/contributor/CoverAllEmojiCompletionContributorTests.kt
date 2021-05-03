@@ -8,7 +8,6 @@ import com.intellij.lang.properties.PropertiesFileType
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.testFramework.builders.ModuleFixtureBuilder
 import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
-import com.jetbrains.php.lang.PhpFileType
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.plugins.groovy.GroovyFileType
 import org.jetbrains.plugins.scala.ScalaFileType
@@ -30,7 +29,7 @@ class CoverAllEmojiCompletionContributorTests : CodeInsightFixtureTestCase<Modul
 
         val line = "548\t0x1F996\tT-Rex\tT-Rex | Tyrannosaurus Rex"
         val completion = EmojiCompletion.fromCsv(line)
-        EmojiDataManager.emojiList = listOf(completion)
+        EmojiDataManager.emojiList.add(completion)
     }
 
     @AfterEach
@@ -60,13 +59,13 @@ class CoverAllEmojiCompletionContributorTests : CodeInsightFixtureTestCase<Modul
                 arguments(JavaScriptFileType.INSTANCE, "\"aaa :<caret> bbb\""),
                 // I'm not sure why
                 // arguments(JavaScriptFileType.INSTANCE, "`aaa :<caret> bbb`"),
-                arguments(
-                    PhpFileType.INSTANCE, """
-                    <?php
-                        'aaa :<caret> ddd';
-                    ?>
-                """.trimIndent()
-                ),
+//                arguments(
+//                    PhpFileType.INSTANCE, """
+//                    <?php
+//                        'aaa :<caret> ddd';
+//                    ?>
+//                """.trimIndent()
+//                ),
                 arguments(
                     ScalaFileType.INSTANCE, """
                     val text = "aaa :<caret> ddd"
