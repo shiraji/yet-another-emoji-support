@@ -19,8 +19,6 @@ jobs:
       with:
         path: ~/.gradle/wrapper
         key: v1-gradle-wrapper-${{ hashFiles('settings.gradle.kts') }}-${{ hashFiles('build.gradle.kts') }}-${{ hashFiles('gradle.properties') }}
-    - name: DL all dependencies
-      run: ./gradlew resolveDependencies
     - name: ktlint and verify plugin
       run: ./gradlew ktlintCheck verifyPlugin --no-daemon --max-workers 2
     - name: test
