@@ -55,4 +55,8 @@
     <actions>
         <!-- Add your actions here -->
     </actions>
+
+    <applicationListeners>
+        <listener class="com.github.shiraji.yaemoji.listener.EmojiDynamicPluginListener" topic="com.intellij.ide.plugins.DynamicPluginListener" />
+    </applicationListeners>
 </idea-plugin>

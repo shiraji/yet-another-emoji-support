@@ -17,6 +17,10 @@ class EmojiCompletionProvider : CompletionProvider<CompletionParameters>() {
         val colonPosition = parameters.findColonPosition()
         if (colonPosition < 0) return
 
+        if (!EmojiDataManager.hasEmoji()) {
+            EmojiDataManager.loadEmoji()
+        }
+
         EmojiDataManager.emojiList.forEach {
             val keywords = it.keywords.map { keyword -> ":$keyword:" }
             val keywordsString = if (keywords.isEmpty()) "" else keywords.joinToString(prefix = "(", postfix = ")")
