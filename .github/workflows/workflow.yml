@@ -23,7 +23,7 @@ jobs:
     - name: verify plugin
       run: ./gradlew verifyPlugin --no-daemon --max-workers 2
     - name: test
-      run: ./gradlew test jacocoTestReport --no-daemon --max-workers 2
+      run: ./gradlew test --no-daemon --max-workers 2
 
   beta-release:
     needs: build-and-test
