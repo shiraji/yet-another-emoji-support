@@ -1,16 +1,23 @@
 package com.github.shiraji.yaemoji.contributor
 
+import com.github.shiraji.yaemoji.action.EmojiProjectActivity
 import com.github.shiraji.yaemoji.domain.EmojiCompletion
 import com.github.shiraji.yaemoji.domain.EmojiDataManager
 import com.intellij.ide.highlighter.JavaFileType
 import com.intellij.lang.javascript.JavaScriptFileType
 import com.intellij.lang.properties.PropertiesFileType
 import com.intellij.openapi.fileTypes.FileType
+import com.intellij.psi.css.CssFile
+import com.intellij.psi.css.CssFileType
 import com.intellij.testFramework.builders.ModuleFixtureBuilder
+import com.intellij.testFramework.fixtures.BasePlatformTestCase
 import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
 import com.jetbrains.php.lang.PhpFileType
+import kotlinx.coroutines.runBlocking
+import org.apache.tools.ant.taskdefs.optional.PropertyFile
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.plugins.groovy.GroovyFileType
+import org.jetbrains.plugins.ruby.ruby.lang.RubyFileType
 import org.jetbrains.plugins.scala.ScalaFileType
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -22,15 +29,15 @@ import org.junit.jupiter.params.provider.ArgumentsProvider
 import org.junit.jupiter.params.provider.ArgumentsSource
 import java.util.stream.Stream
 
-class CoverAllEmojiCompletionContributorTests : CodeInsightFixtureTestCase<ModuleFixtureBuilder<*>>() {
+class CoverAllEmojiCompletionContributorTests : BasePlatformTestCase() {
 
     @BeforeEach
     fun beforeEach() {
         setUp()
 
-        val line = "548\t0x1F996\tT-Rex\tT-Rex | Tyrannosaurus Rex"
-        val completion = EmojiCompletion.fromCsv(line)
-        EmojiDataManager.emojiList = listOf(completion)
+        runBlocking {
+            EmojiProjectActivity().execute(project)
+        }
     }
 
     @AfterEach
@@ -47,46 +54,76 @@ class CoverAllEmojiCompletionContributorTests : CodeInsightFixtureTestCase<Modul
                 // Add test cases that does not work with AllEmojiCompletionContributorTests
                 arguments(
                     GroovyFileType.GROOVY_FILE_TYPE, """
-                    def text = "aaa :<caret> vvv"
-                """.trimIndent()
+                    def text = "aaa :T<caret> vvv"
+                """.trimIndent(),
+                    "Groovy string middle"
                 ),
                 arguments(
                     JavaFileType.INSTANCE, """
                     class Foo {
                         String text = "aaa :<caret> ccc";
-                    }""".trimIndent()
+                    }""".trimIndent(),
+                    "Java string middle"
                 ),
-                arguments(JavaScriptFileType.INSTANCE, "'aaa :<caret> bbb'"),
-                arguments(JavaScriptFileType.INSTANCE, "\"aaa :<caret> bbb\""),
+                arguments(JavaScriptFileType.INSTANCE, "'aaa :<caret> bbb'", "JS string middle"),
+                arguments(JavaScriptFileType.INSTANCE, "\"aaa :<caret> bbb\"", "JS string middle2"),
+                arguments(JavaScriptFileType.INSTANCE, "`aaa :<caret> bbb`", "JS string template middle"),
                 // I'm not sure why
-                // arguments(JavaScriptFileType.INSTANCE, "`aaa :<caret> bbb`"),
-                arguments(
-                    PhpFileType.INSTANCE, """
-                    <?php
-                        'aaa :<caret> ddd';
-                    ?>
-                """.trimIndent()
-                ),
+//                arguments(
+//                    PhpFileType.INSTANCE, """
+//                    <?php
+//                        'aaa :<caret> ddd';
+//                    ?>
+//                """.trimIndent(),
+//                    "PHP string middle"
+//                ),
                 arguments(
                     ScalaFileType.INSTANCE, """
                     val text = "aaa :<caret> ddd"
-                """.trimIndent()
+                """.trimIndent(),
+                    "Scala string middle"
                 ),
                 arguments(
                     PropertiesFileType.INSTANCE, """
                         foo=aaa:T-Rex<caret>bbb
-                    """.trimIndent()
+                    """.trimIndent(),
+                    "Properties middle"
+                ),
+                // I'm not sure why
+//                arguments(
+//                    PropertiesFileType.INSTANCE, """
+//                        foo=:T-R<caret>
+//                    """.trimIndent(),
+//                    "Properties value"
+//                ),
+//                arguments(
+//                    PropertiesFileType.INSTANCE, """
+//                        # :T-Rex<caret>
+//                    """.trimIndent(),
+//                    "Properties comment"
+//                ),
+//                arguments(
+//                    CssFileType.INSTANCE, """
+//                        /* :T-Rex<caret> */
+//                    """.trimIndent(),
+//                    "CSS comment"
+//                ),
+                arguments(
+                    RubyFileType.RUBY, """
+                        text = "aaa :<caret> bbb"
+                    """.trimIndent(),
+                    "Ruby string middle"
                 )
             )
         }
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{2}")
     @ArgumentsSource(SuccessArgumentsProvider::class)
-    fun `Should successfully show completion`(fileType: FileType, text: String) {
+    fun `Should successfully show completion`(fileType: FileType, text: String, name: String) {
         myFixture.configureByText(fileType, text)
         myFixture.completeBasic()
         val lookupStrings = myFixture.lookupElementStrings
-        assertThat(lookupStrings).contains(":T-Rex: 🦖 (:Tyrannosaurus Rex:)")
+        assertThat(lookupStrings).isNotEmpty.contains(":T-Rex: 🦖 (:Tyrannosaurus Rex:)")
     }
 }

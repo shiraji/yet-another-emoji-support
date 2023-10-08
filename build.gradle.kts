@@ -1,134 +1,79 @@
-import org.jetbrains.intellij.tasks.PatchPluginXmlTask
-import org.jetbrains.intellij.tasks.PublishTask
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-buildscript {
-    repositories {
-        jcenter()
-        maven { setUrl("http://dl.bintray.com/jetbrains/intellij-plugin-service") }
-    }
-}
-
 plugins {
-    id("org.jetbrains.kotlin.jvm")
-    id("jacoco")
-    id("org.jetbrains.intellij") version "0.4.8"
+    id("java")
+    id("org.jetbrains.kotlin.jvm") version "1.9.0"
+    id("org.jetbrains.intellij") version "1.15.0"
 }
 
 group = "com.github.shiraji"
-version = System.getProperty("VERSION") ?: "0.0.1"
-
-val test by tasks.getting(Test::class) {
-    useJUnitPlatform()
-    maxHeapSize = "3g"
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-    }
-}
-
-jacoco {
-    toolVersion = "0.8.2"
-}
-
-val jacocoTestReport by tasks.existing(JacocoReport::class) {
-    reports {
-        xml.isEnabled = true
-        html.isEnabled = true
-    }
-}
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
-// See https://github.com/JetBrains/gradle-intellij-plugin/
+// Configure Gradle IntelliJ Plugin
+// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version = "IU-2018.1.4"
+    version.set("2023.2")
+    type.set("IU") // Target IDE Platform
 
-    setPlugins(
-            // https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-            "Kotlin",
-            "Pythonid:2018.1.181.5087.50", // https://plugins.jetbrains.com/plugin/631-python
-            "org.jetbrains.plugins.ruby:2018.1.20180515", // https://plugins.jetbrains.com/plugin/1293-ruby
-            "yaml",
-            "org.jetbrains.plugins.go:181.5087.39.204", // https://plugins.jetbrains.com/plugin/9568-go
-            "com.jetbrains.php:181.5087.11", // https://plugins.jetbrains.com/plugin/6610-php
-            "JavaScriptLanguage",
-            "markdown",
-            "Groovy",
-            "org.intellij.scala:2018.1.4", // https://plugins.jetbrains.com/plugin/1347-scala
-            "org.rust.lang:0.2.0.2107-181", // https://plugins.jetbrains.com/plugin/8182-rust
-            "CSS",
-            "java-i18n",
-            "properties",
-            "coverage"
-    )
-    updateSinceUntilBuild = false
+    plugins.set(listOf(
+        "Kotlin",
+        "Pythonid:232.8660.185", // https://plugins.jetbrains.com/plugin/631-python
+        "org.jetbrains.plugins.ruby:232.8660.185", // https://plugins.jetbrains.com/plugin/1293-ruby
+        "yaml",
+        "org.jetbrains.plugins.go:232.8660.142", // https://plugins.jetbrains.com/plugin/9568-go
+//        "IntelliLang",
+        "com.jetbrains.php:232.8660.205", // https://plugins.jetbrains.com/plugin/6610-php
+//        "JavaScriptLanguage",
+        "JavaScript",
+        "markdown",
+        "Groovy",
+        "org.intellij.scala:2023.2.23", // https://plugins.jetbrains.com/plugin/1347-scala
+        "org.rust.lang:0.4.201.5424-232", // https://plugins.jetbrains.com/plugin/8182-rust
+        "com.intellij.css",
+        "java-i18n",
+        "properties",
+        "xml-refactoring",
+//        "coverage"
+    ))
 }
 
-val patchPluginXml: PatchPluginXmlTask by tasks
-patchPluginXml {
-    changeNotes(project.file("LATEST.txt").readText())
-}
+tasks {
+    // Set the JVM compatibility versions
+    withType<JavaCompile> {
+        sourceCompatibility = "17"
+        targetCompatibility = "17"
+    }
+    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions.jvmTarget = "17"
+    }
 
-val publishPlugin: PublishTask by tasks
-publishPlugin {
-    token(System.getenv("HUB_TOKEN"))
-    channels(System.getProperty("CHANNELS") ?: "beta")
+    patchPluginXml {
+        sinceBuild.set("232")
+        untilBuild.set("232.*")
+    }
+
+    signPlugin {
+        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
+        privateKey.set(System.getenv("PRIVATE_KEY"))
+        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+    }
+
+    publishPlugin {
+        token.set(System.getenv("PUBLISH_TOKEN"))
+    }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
 dependencies {
-    val kotlinVersion: String by project
-    compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
 
-    testImplementation("io.mockk:mockk:1.10.6")
+    testImplementation("io.mockk:mockk:1.13.8")
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
     testImplementation("org.assertj:assertj-core:3.11.1")
 }
-
-configurations {
-    create("ktlint")
-
-    dependencies {
-        add("ktlint", "com.github.shyiko:ktlint:0.30.0")
-    }
-}
-
-tasks.register("ktlintCheck", JavaExec::class) {
-    description = "Check Kotlin code style."
-    classpath = configurations["ktlint"]
-    main = "com.github.shyiko.ktlint.Main"
-    args("src/**/*.kt")
-}
-
-tasks.register("ktlintFormat", JavaExec::class) {
-    description = "Fix Kotlin code style deviations."
-    classpath = configurations["ktlint"]
-    main = "com.github.shyiko.ktlint.Main"
-    args("-F", "src/**/*.kt")
-}
-
-tasks.register("resolveDependencies") {
-    doLast {
-        project.rootProject.allprojects.forEach {subProject ->
-            subProject.buildscript.configurations.forEach {configuration ->
-                if (configuration.isCanBeResolved) {
-                    configuration.resolve()
-                }
-            }
-            subProject.configurations.forEach {configuration ->
-                if (configuration.isCanBeResolved) {
-                    configuration.resolve()
-                }
-            }
-        }
-    }
-}
-
-inline operator fun <T : Task> T.invoke(a: T.() -> Unit): T = apply(a)

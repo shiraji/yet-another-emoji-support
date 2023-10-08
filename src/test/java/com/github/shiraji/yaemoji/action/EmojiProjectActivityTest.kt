@@ -1,15 +1,15 @@
 package com.github.shiraji.yaemoji.action
 
 import com.github.shiraji.yaemoji.domain.EmojiDataManager
-import com.intellij.openapi.progress.EmptyProgressIndicator
 import com.intellij.testFramework.builders.ModuleFixtureBuilder
 import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
+import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class EmojiPreloadingActivityTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<*>>() {
+class EmojiProjectActivityTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<*>>() {
 
     @BeforeEach
     fun beforeEach() {
@@ -25,7 +25,9 @@ class EmojiPreloadingActivityTest : CodeInsightFixtureTestCase<ModuleFixtureBuil
 
     @Test
     fun `Should load emojis`() {
-        EmojiPreloadingActivity().preload(EmptyProgressIndicator())
+        runBlocking {
+            EmojiProjectActivity().execute(project)
+        }
 
         assertThat(EmojiDataManager.emojiList).hasSize(1719)
         assertThat(EmojiDataManager.emojiList[100].id).isEqualTo(101)
