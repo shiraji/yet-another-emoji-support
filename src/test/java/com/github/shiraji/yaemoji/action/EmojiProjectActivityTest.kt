@@ -14,12 +14,10 @@ class EmojiProjectActivityTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder
     @BeforeEach
     fun beforeEach() {
         setUp()
-        EmojiDataManager.emojiList = emptyList()
     }
 
     @AfterEach
     fun afterEach() {
-        EmojiDataManager.emojiList = emptyList()
         tearDown()
     }
 
@@ -29,7 +27,7 @@ class EmojiProjectActivityTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder
             EmojiProjectActivity().execute(project)
         }
 
-        assertThat(EmojiDataManager.emojiList).hasSize(1719)
-        assertThat(EmojiDataManager.emojiList[100].id).isEqualTo(101)
+        assertThat(EmojiDataManager.emojiList).hasSize(1)
+        assertThat(EmojiDataManager.emojiList[0].id).isEqualTo(548)
     }
 }

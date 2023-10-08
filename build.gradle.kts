@@ -75,5 +75,5 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.8")
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
-    testImplementation("org.assertj:assertj-core:3.11.1")
+    testImplementation("org.assertj:assertj-core:3.24.2")
 }

@@ -1,8 +1,6 @@
 package com.github.shiraji.yaemoji.contributor
 
 import com.github.shiraji.yaemoji.action.EmojiProjectActivity
-import com.github.shiraji.yaemoji.domain.EmojiCompletion
-import com.github.shiraji.yaemoji.domain.EmojiDataManager
 import com.goide.GoFileType
 import com.intellij.ide.highlighter.JavaFileType
 import com.intellij.ide.highlighter.XmlFileType
@@ -10,11 +8,7 @@ import com.intellij.lang.javascript.JavaScriptFileType
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.css.CssFileType
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
-import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory
-import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
-import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixtureTestCase
 import com.jetbrains.php.lang.PhpFileType
 import com.jetbrains.python.PythonFileType
 import kotlinx.coroutines.runBlocking
