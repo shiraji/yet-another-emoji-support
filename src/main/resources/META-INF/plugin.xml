@@ -29,7 +29,7 @@
     <depends optional="true" config-file="go.xml">org.jetbrains.plugins.go</depends>
     <depends optional="true" config-file="php.xml">com.jetbrains.php</depends>
     <depends optional="true" config-file="js.xml">JavaScript</depends>
-    <depends optional="true" config-file="xml.xml">com.intellij.modules.xml</depends>
+    <depends optional="true" config-file="xml3.xml">com.intellij.modules.xml</depends>
     <depends optional="true" config-file="markdown.xml">org.intellij.plugins.markdown</depends>
     <depends optional="true" config-file="groovy.xml">org.intellij.groovy</depends>
     <depends optional="true" config-file="scala.xml">org.intellij.scala</depends>
@@ -55,6 +55,11 @@
     <actions>
         <!-- Add your actions here -->
     </actions>
+
+    <projectListeners>
+        <listener class="com.intellij.codeInsight.completion.HtmlCompletionContributor$HtmlElementInTextLookupManagerListener"
+                  topic="com.intellij.codeInsight.lookup.LookupManagerListener"/>
+    </projectListeners>
 
     <applicationListeners>
         <listener class="com.github.shiraji.yaemoji.listener.EmojiDynamicPluginListener" topic="com.intellij.ide.plugins.DynamicPluginListener" />
