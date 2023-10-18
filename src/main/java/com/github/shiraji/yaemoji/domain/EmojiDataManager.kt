@@ -3,8 +3,8 @@ package com.github.shiraji.yaemoji.domain
 object EmojiDataManager {
     val emojiList: MutableList<EmojiCompletion> = mutableListOf()
 
-    fun loadEmoji() {
-        val emojis = javaClass.getResourceAsStream("/emojis/emoji.csv").use { inputStream ->
+    fun loadEmoji(filePath: String = "/emojis/emoji.csv") {
+        val emojis = javaClass.getResourceAsStream(filePath).use { inputStream ->
             inputStream?.bufferedReader()?.use { reader ->
                 reader.readLines().map { line ->
                     EmojiCompletion.fromCsv(line)
