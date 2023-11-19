@@ -1,0 +1,17 @@
+<!--
+
+Missing extension point: com.intellij.completion.htmlInTextCompletionEnabler
+java.lang.RuntimeException: Cannot invoke (class=HtmlElementInTextLookupManagerListener, method=activeLookupChanged, topic=lookup manager listener)
+
+If you create config-file named "xml.xml", you will get this error.
+To fix this error, you need to rename config-file to "xml3.xml" or something else.
+
+-->
+
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <completion.contributor language="XML"
+                                implementationClass="com.github.shiraji.yaemoji.contributor.XMLEmojiCompletionContributor"/>
+
+    </extensions>
+</idea-plugin>

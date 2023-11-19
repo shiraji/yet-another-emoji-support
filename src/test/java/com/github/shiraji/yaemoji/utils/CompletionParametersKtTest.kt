@@ -4,9 +4,8 @@ import com.intellij.codeInsight.completion.CompletionParameters
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-
 import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 
 class CompletionParametersKtTest {
 
