@@ -1,20 +1,12 @@
 package com.github.shiraji.yaemoji.contributor
 
 import com.github.shiraji.yaemoji.action.EmojiProjectActivity
-import com.github.shiraji.yaemoji.domain.EmojiCompletion
-import com.github.shiraji.yaemoji.domain.EmojiDataManager
 import com.intellij.ide.highlighter.JavaFileType
 import com.intellij.lang.javascript.JavaScriptFileType
 import com.intellij.lang.properties.PropertiesFileType
 import com.intellij.openapi.fileTypes.FileType
-import com.intellij.psi.css.CssFile
-import com.intellij.psi.css.CssFileType
-import com.intellij.testFramework.builders.ModuleFixtureBuilder
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
-import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
-import com.jetbrains.php.lang.PhpFileType
 import kotlinx.coroutines.runBlocking
-import org.apache.tools.ant.taskdefs.optional.PropertyFile
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.plugins.groovy.GroovyFileType
 import org.jetbrains.plugins.ruby.ruby.lang.RubyFileType

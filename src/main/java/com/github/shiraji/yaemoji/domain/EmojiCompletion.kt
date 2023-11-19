@@ -2,7 +2,6 @@ package com.github.shiraji.yaemoji.domain
 
 import com.intellij.ui.scale.JBUIScale
 import com.intellij.util.IconUtil
-import com.intellij.util.ui.JBUI
 import javax.swing.Icon
 import javax.swing.JLabel
 
