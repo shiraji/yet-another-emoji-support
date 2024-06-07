@@ -56,7 +56,7 @@ tasks {
     }
 
     publishPlugin {
-        token.set(System.getenv("PUBLISH_TOKEN"))
+        token.set(System.getenv("HUB_TOKEN"))
         channels.set(listOf(System.getProperty("CHANNELS") ?: "beta"))
     }
 
