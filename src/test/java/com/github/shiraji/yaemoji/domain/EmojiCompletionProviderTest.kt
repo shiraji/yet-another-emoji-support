@@ -10,6 +10,7 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
@@ -46,14 +47,14 @@ class EmojiCompletionProviderTest {
             every { parameters.editor.caretModel.currentCaret.offset } returns text.length
             every { parameters.position.textRange.startOffset } returns 0
             every { parameters.editor.document.text } returns text
-                val lookup = slot<LookupElement>()
-                every { result.addElement(capture(lookup)) } just Runs
+            val lookup = slot<LookupElement>()
+            every { result.addElement(capture(lookup)) } just Runs
 
-            EmojiDataManager.emojiList = listOf(EmojiCompletion(1, "T-Rex", "🦖", listOf("Foo"), null))
+            EmojiDataManager.loadEmoji()
 
             target.addCompletionVariants(parameters, context, result)
 
-            assertThat(lookup.captured.lookupString).isEqualTo(":T-Rex: \uD83E\uDD96 (:Foo:)")
+            assertThat(lookup.captured.lookupString).isEqualTo(":T-Rex: \uD83E\uDD96 (:Tyrannosaurus Rex:)")
         }
 
         @Test
@@ -63,8 +64,9 @@ class EmojiCompletionProviderTest {
             every { parameters.editor.caretModel.currentCaret.offset } returns text.length
             every { parameters.position.textRange.startOffset } returns 0
             every { parameters.editor.document.text } returns text
-            EmojiDataManager.emojiList = emptyList()
-            target.addCompletionVariants(parameters, context, result)
+            every { result.addElement(any()) } just Runs
+            EmojiDataManager.clearEmoji()
+            assertDoesNotThrow { target.addCompletionVariants(parameters, context, result) }
         }
     }
 }
