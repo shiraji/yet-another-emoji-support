@@ -9,7 +9,7 @@
     <li>Type ":" and emoji name</li>
     <li>Open code completion</li>
     </ul>
-    <img src="https://github.com/shiraji/yet-another-emoji-support/raw/master/website/images/emoji.gif"/>
+    <img src="https://github.com/shiraji/yet-another-emoji-support/raw/main/website/images/emoji.gif"/>
     <br/>
     This plugin supports Go, Groovy, Java, JavaScript, Kotlin, Markdown, PHP, Python, Ruby, Rust, Scala, TypeScript, XML, YAML. You can insert emoji in the commit dialog 😎
     <br/>
