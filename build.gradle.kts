@@ -51,7 +51,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("232")
-        untilBuild.set("232.*")
+        untilBuild.set("242.*")
         changeNotes.set(project.file("LATEST.txt").readText())
     }
 
