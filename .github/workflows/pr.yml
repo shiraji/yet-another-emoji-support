@@ -4,6 +4,6 @@ on: pull_request
 
 jobs:
   test:
-    uses: ./.github/workflows/test.yml
+    uses: ./.github/workflows/_test.yml
   verify:
-    uses: ./.github/workflows/verify.yml
+    uses: ./.github/workflows/_verify.yml
