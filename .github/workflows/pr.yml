@@ -1,26 +1,9 @@
-name: CI-test
+name: verify pull request
 
 on: pull_request
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-    - uses: actions/cache@v3
-      with:
-        path: ~/.gradle/caches
-        key: v1-gradle-caches-${{ hashFiles('settings.gradle.kts') }}-${{ hashFiles('build.gradle.kts') }}-${{ hashFiles('gradle.properties') }}
-    - uses: actions/cache@v3
-      with:
-        path: ~/.gradle/wrapper
-        key: v1-gradle-wrapper-${{ hashFiles('settings.gradle.kts') }}-${{ hashFiles('build.gradle.kts') }}-${{ hashFiles('gradle.properties') }}
-    - name: verify plugin
-      run: ./gradlew verifyPlugin --no-daemon --max-workers 2
-    - name: test
-      run: ./gradlew test --no-daemon --max-workers 2
+  test:
+    uses: ./.github/workflows/_test.yml
+  verify:
+    uses: ./.github/workflows/_verify.yml
