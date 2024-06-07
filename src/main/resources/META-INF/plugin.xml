@@ -17,8 +17,9 @@
     <a href="https://github.com/shiraji/yet-another-emoji-support/issues">Issues</a>
     ]]></description>
 
-    <idea-version since-build="2022.2.5"/>
+    <idea-version since-build="232"/>
 
+    <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
     <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
     <depends optional="true" config-file="java.xml">com.intellij.java</depends>
@@ -36,12 +37,6 @@
     <depends optional="true" config-file="rust.xml">org.rust.lang</depends>
     <depends optional="true" config-file="properties.xml">com.intellij.properties</depends>
 
-    <extensionPoints>
-        <extensionPoint name="completion.htmlInTextCompletionEnabler"
-                        interface="com.intellij.codeInsight.completion.HtmlInTextCompletionEnabler"
-                        dynamic="true"/>
-    </extensionPoints>
-
     <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity implementation="com.github.shiraji.yaemoji.action.EmojiProjectActivity"/>
 
@@ -55,11 +50,6 @@
     <actions>
         <!-- Add your actions here -->
     </actions>
-
-    <projectListeners>
-        <listener class="com.intellij.codeInsight.completion.HtmlCompletionContributor$HtmlElementInTextLookupManagerListener"
-                  topic="com.intellij.codeInsight.lookup.LookupManagerListener"/>
-    </projectListeners>
 
     <applicationListeners>
         <listener class="com.github.shiraji.yaemoji.listener.EmojiDynamicPluginListener" topic="com.intellij.ide.plugins.DynamicPluginListener" />
