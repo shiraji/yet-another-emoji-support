@@ -12,11 +12,11 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: ~/.gradle/caches
         key: v1-gradle-caches-${{ hashFiles('settings.gradle.kts') }}-${{ hashFiles('build.gradle.kts') }}-${{ hashFiles('gradle.properties') }}
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: ~/.gradle/wrapper
         key: v1-gradle-wrapper-${{ hashFiles('settings.gradle.kts') }}-${{ hashFiles('build.gradle.kts') }}-${{ hashFiles('gradle.properties') }}
