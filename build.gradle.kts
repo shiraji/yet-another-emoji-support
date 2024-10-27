@@ -60,7 +60,7 @@ dependencies {
 
         plugin("Refactor-X", "242.20224.170") // https://plugins.jetbrains.com/plugin/13119-refactor-x
         plugin("JavaScript", "242.21829.3") // https://plugins.jetbrains.com/plugin/22069-javascript-and-typescript
-        plugin("Pythonid", "242.21829.3") // https://plugins.jetbrains.com/plugin/631-python
+        plugin("PythonCore", "242.21829.3") // https://plugins.jetbrains.com/plugin/631-python
         plugin("org.jetbrains.plugins.ruby", "242.21829.3") // https://plugins.jetbrains.com/plugin/1293-ruby
         plugin("org.jetbrains.plugins.go", "242.21829.3") // https://plugins.jetbrains.com/plugin/9568-go
         plugin("com.jetbrains.php", "242.21829.3") // https://plugins.jetbrains.com/plugin/6610-php
@@ -68,6 +68,10 @@ dependencies {
         plugin("com.jetbrains.rust", "242.19890.39") // https://plugins.jetbrains.com/plugin/8182-rust
         plugin("com.intellij.css", "242.21829.3") // https://plugins.jetbrains.com/plugin/22068-css/versions
         plugin("com.intellij.properties", "242.20224.155") // https://plugins.jetbrains.com/plugin/11594-properties
+
+        pluginVerifier()
+        zipSigner()
+        instrumentationTools()
     }
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
 

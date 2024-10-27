@@ -22,7 +22,7 @@
     <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
     <depends optional="true" config-file="java.xml">com.intellij.java</depends>
     <depends optional="true" config-file="kotlin.xml">org.jetbrains.kotlin</depends>
-    <depends optional="true" config-file="python.xml">Pythonid</depends>
+    <depends optional="true" config-file="python.xml">PythonCore</depends>
     <depends optional="true" config-file="ruby.xml">org.jetbrains.plugins.ruby</depends>
     <depends optional="true" config-file="yaml.xml">org.jetbrains.plugins.yaml</depends>
     <depends optional="true" config-file="go.xml">org.jetbrains.plugins.go</depends>
@@ -32,7 +32,7 @@
     <depends optional="true" config-file="markdown.xml">org.intellij.plugins.markdown</depends>
     <depends optional="true" config-file="groovy.xml">org.intellij.groovy</depends>
     <depends optional="true" config-file="scala.xml">org.intellij.scala</depends>
-    <depends optional="true" config-file="rust.xml">org.rust.lang</depends>
+    <depends optional="true" config-file="rust.xml">com.jetbrains.rust</depends>
     <depends optional="true" config-file="properties.xml">com.intellij.properties</depends>
 
     <extensions defaultExtensionNs="com.intellij">
