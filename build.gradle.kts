@@ -31,6 +31,13 @@ intellijPlatform {
             untilBuild.set("243.*")
         }
     }
+    pluginVerification {
+        ides {
+            ide("ideaIC", "2024.2.1")
+            ide("ideaIU", "2024.2.1")
+            recommended()
+        }
+    }
 }
 
 tasks {
