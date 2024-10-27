@@ -37,7 +37,6 @@ intellijPlatform {
         ides {
             ide(IntelliJPlatformType.IntellijIdeaCommunity, "2024.2.1")
             ide(IntelliJPlatformType.IntellijIdeaUltimate, "2024.2.1")
-            recommended()
         }
     }
 }
