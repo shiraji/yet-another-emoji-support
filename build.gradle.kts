@@ -1,4 +1,5 @@
 import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
     id("java")
@@ -41,6 +42,11 @@ intellijPlatform {
     }
 }
 
+intellijPlatformTesting {
+    runIde
+    testIde
+}
+
 tasks {
     // Set the JVM compatibility versions
     withType<JavaCompile> {
@@ -80,11 +86,14 @@ dependencies {
         pluginVerifier()
         zipSigner()
         instrumentationTools()
+        testFramework(TestFrameworkType.Platform)
+//        testFramework(TestFrameworkType.JUnit5)
     }
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
 
     testImplementation("io.mockk:mockk:1.13.8")
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
+    testImplementation("junit:junit:4.13.2")
     testImplementation("org.assertj:assertj-core:3.24.2")
 }
