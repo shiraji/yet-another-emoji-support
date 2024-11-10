@@ -5,7 +5,10 @@ import com.intellij.ide.highlighter.JavaFileType
 import com.intellij.lang.javascript.JavaScriptFileType
 import com.intellij.lang.properties.PropertiesFileType
 import com.intellij.openapi.fileTypes.FileType
-import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import com.intellij.testFramework.fixtures.CodeInsightTestFixture
+import com.intellij.testFramework.fixtures.IdeaProjectTestFixture
+import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory
+import com.intellij.testFramework.fixtures.TestFixtureBuilder
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.plugins.groovy.GroovyFileType
@@ -21,20 +24,27 @@ import org.junit.jupiter.params.provider.ArgumentsProvider
 import org.junit.jupiter.params.provider.ArgumentsSource
 import java.util.stream.Stream
 
-class CoverAllEmojiCompletionContributorTests : BasePlatformTestCase() {
+class CoverAllEmojiCompletionContributorTests {
+
+    private lateinit var myFixture: CodeInsightTestFixture
 
     @BeforeEach
     fun beforeEach() {
-        setUp()
+
+        val factory = IdeaTestFixtureFactory.getFixtureFactory()
+        val fixtureBuilder: TestFixtureBuilder<IdeaProjectTestFixture> = factory.createLightFixtureBuilder("CoverAllEmojiCompletionContributorTests")
+        val fixture = fixtureBuilder.fixture
+        myFixture = IdeaTestFixtureFactory.getFixtureFactory().createCodeInsightFixture(fixture)
+        myFixture.setUp()
 
         runBlocking {
-            EmojiProjectActivity().execute(project)
+            EmojiProjectActivity().execute(myFixture.project)
         }
     }
 
     @AfterEach
     fun afterEach() {
-        tearDown()
+//        myFixture.tearDown()
     }
 
     class SuccessArgumentsProvider : ArgumentsProvider {
