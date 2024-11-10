@@ -1,3 +1,7 @@
+### [release-1.1.0](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.1.2)
+
+* Support ver 243.*
+
 ### [release-1.1.0](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.1.0)
 
 * Fix the problem with initialization and restart project #85
