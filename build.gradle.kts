@@ -16,6 +16,7 @@ repositories {
         defaultRepositories()
         releases()
         marketplace()
+        jetbrainsRuntime()
     }
 }
 
@@ -40,31 +41,27 @@ intellijPlatform {
             ide(IntelliJPlatformType.IntellijIdeaUltimate, "2024.2.1")
         }
     }
-}
 
-intellijPlatformTesting {
-    runIde
-    testIde
-}
+    tasks {
+        // Set the JVM compatibility versions
+        withType<JavaCompile> {
+            sourceCompatibility = "17"
+            targetCompatibility = "17"
+        }
+        withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+            kotlinOptions.jvmTarget = "17"
+        }
 
-tasks {
-    // Set the JVM compatibility versions
-    withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
-    }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
-    }
-
-    test {
-        useJUnitPlatform()
+        test {
+            useJUnitPlatform()
+        }
     }
 }
 
 dependencies {
     intellijPlatform {
         intellijIdeaCommunity("2024.2.1")
+        jetbrainsRuntime("2024.2.1")
 
         bundledPlugin("com.intellij.java")
         bundledPlugin("org.jetbrains.kotlin")
@@ -88,12 +85,24 @@ dependencies {
         instrumentationTools()
         testFramework(TestFrameworkType.Platform)
 //        testFramework(TestFrameworkType.JUnit5)
-    }
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
 
-    testImplementation("io.mockk:mockk:1.13.8")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.assertj:assertj-core:3.24.2")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
+
+        testImplementation("io.mockk:mockk:1.13.8")
+        testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
+        testCompileOnly("junit:junit:4.13.2")
+        testImplementation("org.assertj:assertj-core:3.24.2")
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+    }
+//    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
+//
+//    testImplementation("io.mockk:mockk:1.13.8")
+//    testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
+//    testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
+//    testCompileOnly("junit:junit:4.13.2")
+//    testImplementation("org.assertj:assertj-core:3.24.2")
+//    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+//    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
 }
