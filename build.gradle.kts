@@ -1,7 +1,7 @@
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.9.0"
-    id("org.jetbrains.intellij") version "1.16.0"
+    id("org.jetbrains.kotlin.jvm") version "2.1.20"
+    id("org.jetbrains.intellij.platform") version "2.5.0"
 }
 
 group = "com.github.shiraji"
@@ -18,19 +18,18 @@ intellij {
     type.set("IU") // Target IDE Platform
 
     plugins.set(listOf(
-        "Kotlin",
-        "Pythonid:232.8660.185", // https://plugins.jetbrains.com/plugin/631-python
-        "org.jetbrains.plugins.ruby:232.8660.185", // https://plugins.jetbrains.com/plugin/1293-ruby
+        "Pythonid:251.23774.460", // https://plugins.jetbrains.com/plugin/631-python
+        "org.jetbrains.plugins.ruby:251.23774.435", // https://plugins.jetbrains.com/plugin/1293-ruby
         "yaml",
-        "org.jetbrains.plugins.go:232.8660.142", // https://plugins.jetbrains.com/plugin/9568-go
+        "org.jetbrains.plugins.go:251.23774.435", // https://plugins.jetbrains.com/plugin/9568-go
 //        "IntelliLang",
-        "com.jetbrains.php:232.8660.205", // https://plugins.jetbrains.com/plugin/6610-php
+        "com.jetbrains.php:251.23774.466", // https://plugins.jetbrains.com/plugin/6610-php
 //        "JavaScriptLanguage",
         "JavaScript",
         "markdown",
         "Groovy",
-        "org.intellij.scala:2023.2.23", // https://plugins.jetbrains.com/plugin/1347-scala
-        "org.rust.lang:0.4.201.5424-232", // https://plugins.jetbrains.com/plugin/8182-rust
+        "org.intellij.scala:2025.1.20", // https://plugins.jetbrains.com/plugin/1347-scala
+        "com.jetbrains.rust:251.23774.463", // https://plugins.jetbrains.com/plugin/22407-rust
         "com.intellij.css",
         "java-i18n",
         "properties",
@@ -46,7 +45,9 @@ tasks {
         targetCompatibility = "17"
     }
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
     }
 
     patchPluginXml {
