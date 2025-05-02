@@ -1,6 +1,10 @@
-### [release-1.1.0](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.1.2)
+### [release-1.1.3](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.1.2)
 
-* Support ver 243.*
+* Support until ver 253.*
+
+### [release-1.1.2](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.1.2)
+
+* Support until ver 243.*
 
 ### [release-1.1.0](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.1.0)
 
