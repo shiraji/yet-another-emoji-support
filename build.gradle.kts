@@ -52,7 +52,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("232")
-        untilBuild.set("253.*")
+        // untilBuild.set("251.*") Remove for "Open-End" Compatibility. @see https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html#open-end-compatibility
         changeNotes.set(project.file("LATEST.txt").readText())
     }
 
