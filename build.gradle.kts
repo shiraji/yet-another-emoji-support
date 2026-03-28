@@ -6,6 +6,7 @@ plugins {
 
 group = "com.github.shiraji"
 version = System.getProperty("VERSION") ?: "0.0.1"
+val ideaUltimateVersion = "2026.1"
 
 repositories {
     mavenCentral()
@@ -29,6 +30,12 @@ intellijPlatform {
     caching {
         ides {
             enabled = true
+        }
+    }
+    pluginVerification {
+        ides {
+            val verifierIdeVersion = System.getProperty("VERIFIER_IDE_VERSION") ?: ideaUltimateVersion
+            create(org.jetbrains.intellij.platform.gradle.IntelliJPlatformType.IntellijIdeaUltimate, verifierIdeVersion)
         }
     }
 }
@@ -61,7 +68,8 @@ tasks {
 }
 
 dependencies {
-    intellijPlatform { intellijIdeaUltimate("2026.1")
+    intellijPlatform {
+        intellijIdeaUltimate(ideaUltimateVersion)
 
         bundledPlugin("JavaScript")
         bundledPlugin("com.intellij.css")
