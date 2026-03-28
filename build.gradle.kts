@@ -1,7 +1,7 @@
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.9.25" // https://plugins.gradle.org/plugin/org.jetbrains.kotlin.jvm
-    id("org.jetbrains.intellij") version "1.17.4" // https://plugins.gradle.org/plugin/org.jetbrains.intellij
+    id("org.jetbrains.kotlin.jvm") version "2.3.20" // https://plugins.gradle.org/plugin/org.jetbrains.kotlin.jvm
+    id("org.jetbrains.intellij.platform") version "2.13.1" // https://plugins.gradle.org/plugin/org.jetbrains.intellij.platform
 }
 
 group = "com.github.shiraji"
@@ -9,33 +9,28 @@ version = System.getProperty("VERSION") ?: "0.0.1"
 
 repositories {
     mavenCentral()
+    maven("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies") // python-psi
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html
-intellij {
-    version.set("2025.1")
-    type.set("IU") // Target IDE Platform
-
-    plugins.set(listOf(
-        "Pythonid:251.23774.460", // https://plugins.jetbrains.com/plugin/631-python
-        "org.jetbrains.plugins.ruby:251.23774.435", // https://plugins.jetbrains.com/plugin/1293-ruby
-        "yaml",
-        "org.jetbrains.plugins.go:251.23774.435", // https://plugins.jetbrains.com/plugin/9568-go
-//        "IntelliLang",
-        "com.jetbrains.php:251.23774.466", // https://plugins.jetbrains.com/plugin/6610-php
-//        "JavaScriptLanguage",
-        "JavaScript",
-        "markdown",
-        "Groovy",
-        "org.intellij.scala:2025.1.20", // https://plugins.jetbrains.com/plugin/1347-scala
-        "com.jetbrains.rust:251.23774.463", // https://plugins.jetbrains.com/plugin/22407-rust
-        "com.intellij.css",
-        "java-i18n",
-        "properties",
-        "xml-refactoring",
-//        "coverage"
-    ))
+intellijPlatform {
+    pluginConfiguration {
+        id = "com.github.shiraji.yaemoji"
+        name = "Yet another emoji support"
+        version = project.version.toString()
+        changeNotes.set(project.file("LATEST.txt").readText())
+    }
+    publishing {
+        token.set(System.getenv("HUB_TOKEN"))
+        channels.set(listOf(System.getProperty("CHANNELS") ?: "beta"))
+    }
+    caching {
+        ides {
+            enabled = true
+        }
+    }
 }
 
 tasks {
@@ -53,7 +48,6 @@ tasks {
     patchPluginXml {
         sinceBuild.set("232")
         // untilBuild.set("251.*") Remove for "Open-End" Compatibility. @see https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html#open-end-compatibility
-        changeNotes.set(project.file("LATEST.txt").readText())
     }
 
     publishPlugin {
@@ -67,10 +61,34 @@ tasks {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
+    intellijPlatform { intellijIdeaUltimate("2026.1")
 
-    testImplementation("io.mockk:mockk:1.13.8")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
-    testImplementation("org.assertj:assertj-core:3.24.2")
+        bundledPlugin("JavaScript")
+        bundledPlugin("com.intellij.css")
+        bundledPlugin("com.intellij.java")
+        bundledPlugin("com.intellij.modules.xml")
+        bundledPlugin("org.intellij.groovy")
+        bundledPlugin("org.intellij.plugins.markdown")
+        bundledPlugin("org.jetbrains.plugins.yaml")
+
+        plugin("com.jetbrains.php:253.32098.37") // https://plugins.jetbrains.com/plugin/6610-php
+        plugin("com.jetbrains.rust:253.31033.204") // https://plugins.jetbrains.com/plugin/22407-rust
+        plugin("org.intellij.scala:2025.3.39") // https://plugins.jetbrains.com/plugin/1347-scala
+        plugin("org.jetbrains.plugins.go:253.32098.37") // https://plugins.jetbrains.com/plugin/9568-go
+        plugin("org.jetbrains.plugins.ruby:253.32098.37") // https://plugins.jetbrains.com/plugin/1293-ruby
+        plugin("org.jetbrains.kotlin:253.32098.37-IJ") // https://plugins.jetbrains.com/plugin/6954-kotlin
+
+        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.JUnit5)
+    }
+
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.3.20") // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
+
+    // python-psi-api provides PyStringLiteralExpression and other Python PSI interfaces.
+    // Highest available version matching 2025.3 (253.x) builds.
+    compileOnly("com.jetbrains.intellij.python:python-psi:253.32098.37")
+
+    testImplementation("io.mockk:mockk:1.14.9") // https://mvnrepository.com/artifact/io.mockk/mockk
+    testImplementation("org.junit.jupiter:junit-jupiter:5.14.3") // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.14.3") // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
+    testImplementation("org.assertj:assertj-core:3.27.7") // https://mvnrepository.com/artifact/org.assertj/assertj-core
 }
