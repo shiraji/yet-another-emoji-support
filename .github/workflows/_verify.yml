@@ -43,4 +43,4 @@ jobs:
         restore-keys: |
           v1-intellij-platform-${{ runner.os }}-
     - name: verify plugin against IU ${{ matrix.ide-version }}
-      run: ./gradlew verifyPlugin --no-daemon --max-workers 2 -DVERIFIER_IDE_VERSION=${{ matrix.ide-version }}
+      run: ./gradlew verifyPlugin --no-daemon --max-workers 1 -DVERIFIER_IDE_VERSION=${{ matrix.ide-version }}
