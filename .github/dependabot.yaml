@@ -6,10 +6,10 @@ updates:
   - package-ecosystem: "github-actions"
     directories: [ "/" ]
     schedule:
-      interval: "daily"
+      interval: "weekly"
 
   # Maven (pom.xml)
   - package-ecosystem: "gradle"
     directories: [ "/" ]
     schedule:
-      interval: "daily"
+      interval: "weekly"
