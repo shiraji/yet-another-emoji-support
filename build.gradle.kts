@@ -63,7 +63,10 @@ tasks {
     }
 
     test {
-        useJUnitPlatform()
+        useJUnitPlatform {
+            excludeEngines("junit-vintage")
+        }
+        systemProperty("junit.vintage.engine.enabled", "false")
     }
 }
 
@@ -76,6 +79,7 @@ dependencies {
         bundledPlugin("com.intellij.java")
         bundledPlugin("com.intellij.modules.xml")
         bundledPlugin("org.intellij.groovy")
+        bundledPlugin("org.jetbrains.kotlin")
         bundledPlugin("org.intellij.plugins.markdown")
         bundledPlugin("org.jetbrains.plugins.yaml")
 
@@ -84,9 +88,8 @@ dependencies {
         plugin("org.intellij.scala:2025.3.39") // https://plugins.jetbrains.com/plugin/1347-scala
         plugin("org.jetbrains.plugins.go:253.32098.37") // https://plugins.jetbrains.com/plugin/9568-go
         plugin("org.jetbrains.plugins.ruby:253.32098.37") // https://plugins.jetbrains.com/plugin/1293-ruby
-        plugin("org.jetbrains.kotlin:253.32098.37-IJ") // https://plugins.jetbrains.com/plugin/6954-kotlin
 
-        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.JUnit5)
+        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
     }
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.3.20") // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
@@ -95,8 +98,15 @@ dependencies {
     // Highest available version matching 2025.3 (253.x) builds.
     compileOnly("com.jetbrains.intellij.python:python-psi:253.32098.37")
 
-    testImplementation("io.mockk:mockk:1.14.9") // https://mvnrepository.com/artifact/io.mockk/mockk
-    testImplementation("org.junit.jupiter:junit-jupiter:5.14.3") // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.14.3") // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
-    testImplementation("org.assertj:assertj-core:3.27.7") // https://mvnrepository.com/artifact/org.assertj/assertj-core
+    testImplementation("io.mockk:mockk:1.14.9") { // https://mvnrepository.com/artifact/io.mockk/mockk
+        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-bom")
+        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-core")
+        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-core-jvm")
+    }
+    testImplementation(platform("org.junit:junit-bom:5.13.4")) // align with the JUnit Platform launcher used by the IntelliJ test runtime
+    testCompileOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    // IntelliJ test fixture internals still reference these JUnit4 classes at runtime.
+    testRuntimeOnly("junit:junit:4.13.2")
 }
