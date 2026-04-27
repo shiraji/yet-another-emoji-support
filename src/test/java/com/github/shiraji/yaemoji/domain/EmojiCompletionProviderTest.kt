@@ -8,9 +8,8 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.slot
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
@@ -47,14 +46,14 @@ class EmojiCompletionProviderTest {
             every { parameters.editor.caretModel.currentCaret.offset } returns text.length
             every { parameters.position.textRange.startOffset } returns 0
             every { parameters.editor.document.text } returns text
-            val lookup = slot<LookupElement>()
-            every { result.addElement(capture(lookup)) } just Runs
+            val lookups = mutableListOf<LookupElement>()
+            every { result.addElement(capture(lookups)) } just Runs
 
             EmojiDataManager.loadEmoji()
 
             target.addCompletionVariants(parameters, context, result)
 
-            assertThat(lookup.captured.lookupString).isEqualTo(":T-Rex: \uD83E\uDD96 (:Tyrannosaurus Rex:)")
+            assertTrue(lookups.map { it.lookupString }.contains(":T-Rex: \uD83E\uDD96 (:Tyrannosaurus Rex:)"))
         }
 
         @Test

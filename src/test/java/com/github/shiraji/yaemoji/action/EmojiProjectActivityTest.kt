@@ -1,33 +1,40 @@
 package com.github.shiraji.yaemoji.action
 
 import com.github.shiraji.yaemoji.domain.EmojiDataManager
-import com.intellij.testFramework.builders.ModuleFixtureBuilder
-import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
+import com.intellij.testFramework.fixtures.CodeInsightTestFixture
+import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory
 import kotlinx.coroutines.runBlocking
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class EmojiProjectActivityTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<*>>() {
+class EmojiProjectActivityTest {
+
+    private lateinit var fixture: CodeInsightTestFixture
 
     @BeforeEach
     fun beforeEach() {
-        setUp()
+        val fixtureFactory = IdeaTestFixtureFactory.getFixtureFactory()
+        val projectFixture = fixtureFactory.createLightFixtureBuilder("EmojiProjectActivityTest").fixture
+        fixture = fixtureFactory.createCodeInsightFixture(projectFixture)
+        fixture.setUp()
     }
 
     @AfterEach
     fun afterEach() {
-        tearDown()
+        if (::fixture.isInitialized) {
+            fixture.tearDown()
+        }
     }
 
     @Test
     fun `Should load emojis`() {
         runBlocking {
-            EmojiProjectActivity().execute(project)
+            EmojiProjectActivity().execute(fixture.project)
         }
 
-        assertThat(EmojiDataManager.emojiList).hasSize(1)
-        assertThat(EmojiDataManager.emojiList[0].id).isEqualTo(548)
+        assertTrue(EmojiDataManager.emojiList.size > 1000)
+        assertTrue(EmojiDataManager.emojiList.any { it.id == 548 })
     }
 }

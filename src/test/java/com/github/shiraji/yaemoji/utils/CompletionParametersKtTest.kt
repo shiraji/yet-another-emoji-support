@@ -3,7 +3,7 @@ package com.github.shiraji.yaemoji.utils
 import com.intellij.codeInsight.completion.CompletionParameters
 import io.mockk.every
 import io.mockk.mockk
-import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
@@ -23,7 +23,7 @@ class CompletionParametersKtTest {
 
             val result = parameters.findColonPosition()
 
-            assertThat(result).isEqualTo(0)
+            assertEquals(0, result)
         }
 
         @Test
@@ -35,7 +35,7 @@ class CompletionParametersKtTest {
 
             val result = parameters.findColonPosition()
 
-            assertThat(result).isEqualTo(1)
+            assertEquals(1, result)
         }
 
         @Test
@@ -47,7 +47,7 @@ class CompletionParametersKtTest {
 
             val result = parameters.findColonPosition()
 
-            assertThat(result).isEqualTo(-1)
+            assertEquals(-1, result)
         }
 
         @Test
@@ -59,7 +59,7 @@ class CompletionParametersKtTest {
 
             val result = parameters.findColonPosition()
 
-            assertThat(result).isEqualTo(-1)
+            assertEquals(-1, result)
         }
 
         @Test
@@ -71,7 +71,7 @@ class CompletionParametersKtTest {
 
             val result = parameters.findColonPosition()
 
-            assertThat(result).isEqualTo(-1)
+            assertEquals(-1, result)
         }
     }
 }
