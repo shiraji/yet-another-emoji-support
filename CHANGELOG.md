@@ -1,4 +1,8 @@
-### [release-1.1.3](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.1.2)
+### [release-1.1.4](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.1.4)
+
+* Upgrade to support Intellij 2026.1+ #102 Thanks @ranma2913 for contributing!
+
+### [release-1.1.3](https://github.com/shiraji/yet-another-emoji-support/releases/tag/release-1.1.3)
 
 * Support until ver 253.*
 
